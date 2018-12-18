@@ -21,7 +21,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
     
     private final String REDIRECTIONS_FILE = "redirections.txt";
     private ArrayList<RedirectionEntry> redirectionsList = new ArrayList<RedirectionEntry>();
-    private ArrayList<MyPortRedirection> portRedirectionList = new ArrayList<MyPortRedirection>();
+    public ArrayList<MyPortRedirection> portRedirectionList = new ArrayList<MyPortRedirection>();
 
     /**
      * Creates new form RedirectionPanelAuto
@@ -54,7 +54,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         }
     }
     
-    private void startRedirections() {
+    public void startRedirections() {
         for (RedirectionEntry re : redirectionsList) {
             //
             showMessage(re.srcPort + " --> " + re.destHost + ": " + re.destPort);
