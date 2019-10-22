@@ -15,6 +15,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -27,10 +29,10 @@ public class HelpM {
 
     public static void err_output_to_file() {
         //Write error stream to a file
-        create_dir_if_missing("err_output");
+        create_dir_if_missing("err_output_redir");
         try {
             String err_file = "err_" + get_date_time() + ".txt";
-            String output_path = "err_output/" + err_file;
+            String output_path = "err_output_redir/" + err_file;
 
             PrintStream out = new PrintStream(new FileOutputStream(output_path));
             System.setErr(out);
@@ -74,6 +76,15 @@ public class HelpM {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
+    }
+    
+    public static String get_proper_date_and_time_default_format() {
+        TimeZone tz = TimeZone.getDefault();
+        Calendar cal = Calendar.getInstance(tz);
+        DateFormat f1 = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
+        Date d = cal.getTime();
+//        System.out.println(f1.format(d));
+        return f1.format(d);
     }
     
      public static boolean confirm() {

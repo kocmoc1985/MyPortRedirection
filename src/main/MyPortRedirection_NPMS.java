@@ -4,6 +4,8 @@
  */
 package main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,13 +14,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import supplementary.HelpM;
 import supplementary.OUT;
+import supplementary.SimpleLoggerLight;
+import supplementary.TimerThread;
 
 /**
- *
+ * This one is used by "MCRemote" - The server part - NPMS
+ * can trigger stand alone redirection channels
  * @author KOCMOC
  */
-public class MyPortRedirection implements Runnable {
+public class MyPortRedirection_NPMS implements Runnable, ActionListener {
 
     //WORKING TESTED BY ME (Ihtiandr)
     private int SOURCE_PORT; //1433
@@ -28,20 +34,105 @@ public class MyPortRedirection implements Runnable {
     private boolean acceptConnections = true;
     private ArrayList<ClientThread> clientList = new ArrayList<ClientThread>();
     private OUT out;
+    private String ALLOWED_IP;
+    private boolean USED_BY_NMPS = false;
 
-    public MyPortRedirection(int srcPort, String destHost, int destPort, OUT out) {
+    public MyPortRedirection_NPMS(int srcPort, String destHost, int destPort, OUT out) {
         this.SOURCE_PORT = srcPort;
         this.DESTINATION_HOST = destHost;
         this.DESTINATION_PORT = destPort;
         this.out = out;
     }
 
+    /**
+     * This constructor is used by NMPS when it receives 
+     * "RDP_REDIRECTION_CMD_ADVANCED" from the RDPComm client
+     * @param srcPort
+     * @param destHost
+     * @param destPort
+     * @param allowedIP
+     * @param out 
+     */
+    public MyPortRedirection_NPMS(int srcPort, String destHost, int destPort, String allowedIP, OUT out) {
+        this.SOURCE_PORT = srcPort;
+        this.DESTINATION_HOST = destHost;
+        this.DESTINATION_PORT = destPort;
+        this.ALLOWED_IP = allowedIP;
+        this.out = out;
+        this.USED_BY_NMPS = true;
+    }
 
     public void start() {
         Thread x = new Thread(this);
         x.start();
     }
 
+    public static void main(String[] args) {
+        //
+        // The compiled module shall be called "redir.jar"
+        //
+        final String LOG_FILE = "redirx.log";
+        //
+        HelpM.err_output_to_file();
+        //
+        String argStr = null;
+        //
+        // awaiting string of format:
+        // [allowed client ip]#[redirection cmd]
+        // [85.227.250.31]#[localhost 65520 10.87.0.5 3389] -> no brackets i real string
+        //  85.227.250.31#localhost 65520 10.87.0.5 3389
+        try {
+            argStr = args[0];
+        } catch (Exception ex) {
+            Logger.getLogger(MyPortRedirection_NPMS.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
+        //
+        String srcHost;
+        String srcPort;
+        String destHost;
+        String destPort;
+        //
+        try {
+            if (argStr != null && argStr.isEmpty() == false) {
+                String[] arr_a = argStr.split("#");
+                String allowed_ip = arr_a[0];
+                String redir_cmd = arr_a[1];
+                //
+                String[] arr_b = redir_cmd.split(" ");
+                srcHost = arr_b[0];
+                srcPort = arr_b[1];
+                destHost = arr_b[2];
+                destPort = arr_b[3];
+                //
+                SimpleLoggerLight.logg("redirx.log", "ip: " + allowed_ip + " / " + redir_cmd);
+                //
+                MyPortRedirection_NPMS mpr = new MyPortRedirection_NPMS(Integer.parseInt(srcPort), destHost, Integer.parseInt(destPort),allowed_ip, new OUT() {
+                    @Override
+                    public void showMessage(String msg) {
+                        SimpleLoggerLight.logg(LOG_FILE, msg);
+                    }
+
+                    @Override
+                    public void updateStatus(String status) {
+                        SimpleLoggerLight.logg(LOG_FILE, status);
+                    }
+
+                    @Override
+                    public void updateClientCount(int clients) {
+                        SimpleLoggerLight.logg(LOG_FILE, "" + clients);
+                    }
+                });
+                //
+                mpr.start();
+                //
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MyPortRedirection_NPMS.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
+        //
+    }
 
     public void setDestHost(String host) {
         this.DESTINATION_HOST = host;
@@ -88,19 +179,30 @@ public class MyPortRedirection implements Runnable {
         try {
             serverSocket.close();
         } catch (IOException ex) {
-            Logger.getLogger(MyPortRedirection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MyPortRedirection_NPMS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void run() {
         try {
+            startTimerThread();
             go();
         } catch (IOException ex) {
-            Logger.getLogger(MyPortRedirection.class.getName()).log(Level.SEVERE, null, ex);
-            out.showMessage("Server socket closed on port: " + SOURCE_PORT);
-            out.updateStatus("down");
+            Logger.getLogger(MyPortRedirection_NPMS.class.getName()).log(Level.SEVERE, null, ex);
+            if(acceptConnections){
+              out.showMessage("Server socket, cannot bind port: " + SOURCE_PORT);  
+            }
+//            out.updateStatus("down");
         }
+    }
+    
+    /**
+     * To kill the listening server socket after some time
+     */
+    private void startTimerThread(){
+        TimerThread tt = new TimerThread(this);
+        tt.startThread();
     }
 
     private void go() throws IOException {
@@ -109,17 +211,23 @@ public class MyPortRedirection implements Runnable {
         //
         out.showMessage("listening for connections on port: " + SOURCE_PORT);
         //
-        out.updateStatus("listening");
-        //
         while (acceptConnections) {
             //
             Socket clientSocket = serverSocket.accept();
             //
-            //
             out.showMessage("client connected: " + "srcPort: " + SOURCE_PORT + "  " + "destHost: " + DESTINATION_HOST + "  " + "destPort: " + DESTINATION_PORT);
             //
+            String clientIp = clientSocket.getInetAddress().getHostAddress();
             //
-//            String clientIp = clientSocket.getInetAddress().getHostAddress();
+            if(ALLOWED_IP != null && USED_BY_NMPS){
+                //
+                if(clientIp.equals(ALLOWED_IP) == false){
+                    out.showMessage("ClienSocket closed, connection from a none listed ip: " + clientIp + " / allowed ip: " + ALLOWED_IP);
+                    clientSocket.close();
+                    break;
+                }
+                //
+            }
             //
             //
             ClientThread clientThread
@@ -127,11 +235,17 @@ public class MyPortRedirection implements Runnable {
             //
             clientThread.start();
             //
-            //
             clientList.add(clientThread);
             //
             out.updateClientCount(clientList.size());
+            //
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        out.showMessage("Redirection destroyed");
+        closeServerSocket();
     }
 
     /**
