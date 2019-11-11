@@ -5,7 +5,6 @@
  */
 package supplementary;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +16,11 @@ import java.util.logging.Logger;
 public class TimerThread implements Runnable {
 
     private final ActionListener classToNotify;
+    private final int timeOut;
 
-    public TimerThread(ActionListener classImplementinAListener) {
+    public TimerThread(ActionListener classImplementinAListener, int timeOut) {
         this.classToNotify = classImplementinAListener;
+        this.timeOut = timeOut;
     }
     
     public void startThread(){
@@ -29,7 +30,7 @@ public class TimerThread implements Runnable {
 
     @Override
     public void run() {
-        wait_(45000);
+        wait_(timeOut);
         classToNotify.actionPerformed(null);
     }
 

@@ -20,8 +20,9 @@ import supplementary.SimpleLoggerLight;
 import supplementary.TimerThread;
 
 /**
- * This one is used by "MCRemote" - The server part - NPMS
- * can trigger stand alone redirection channels
+ * This one is used by "MCRemote" - The server part - NPMS can trigger stand
+ * alone redirection channels
+ *
  * @author KOCMOC
  */
 public class MyPortRedirection_NPMS implements Runnable, ActionListener {
@@ -45,13 +46,14 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
     }
 
     /**
-     * This constructor is used by NMPS when it receives 
+     * This constructor is used by NMPS when it receives
      * "RDP_REDIRECTION_CMD_ADVANCED" from the RDPComm client
+     *
      * @param srcPort
      * @param destHost
      * @param destPort
      * @param allowedIP
-     * @param out 
+     * @param out
      */
     public MyPortRedirection_NPMS(int srcPort, String destHost, int destPort, String allowedIP, OUT out) {
         this.SOURCE_PORT = srcPort;
@@ -107,7 +109,7 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
                 //
                 SimpleLoggerLight.logg("redirx.log", "ip: " + allowed_ip + " / " + redir_cmd);
                 //
-                MyPortRedirection_NPMS mpr = new MyPortRedirection_NPMS(Integer.parseInt(srcPort), destHost, Integer.parseInt(destPort),allowed_ip, new OUT() {
+                MyPortRedirection_NPMS mpr = new MyPortRedirection_NPMS(Integer.parseInt(srcPort), destHost, Integer.parseInt(destPort), allowed_ip, new OUT() {
                     @Override
                     public void showMessage(String msg) {
                         SimpleLoggerLight.logg(LOG_FILE, msg);
@@ -190,18 +192,18 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
             go();
         } catch (IOException ex) {
             Logger.getLogger(MyPortRedirection_NPMS.class.getName()).log(Level.SEVERE, null, ex);
-            if(acceptConnections){
-              out.showMessage("Server socket, cannot bind port: " + SOURCE_PORT);  
+            if (acceptConnections) {
+                out.showMessage("Server socket, cannot bind port: " + SOURCE_PORT);
             }
 //            out.updateStatus("down");
         }
     }
-    
+
     /**
      * To kill the listening server socket after some time
      */
-    private void startTimerThread(){
-        TimerThread tt = new TimerThread(this);
+    private void startTimerThread() {
+        TimerThread tt = new TimerThread(this, 45000);
         tt.startThread();
     }
 
@@ -219,9 +221,9 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
             //
             String clientIp = clientSocket.getInetAddress().getHostAddress();
             //
-            if(ALLOWED_IP != null && USED_BY_NMPS){
+            if (ALLOWED_IP != null && USED_BY_NMPS) {
                 //
-                if(clientIp.equals(ALLOWED_IP) == false){
+                if (clientIp.equals(ALLOWED_IP) == false) {
                     out.showMessage("ClienSocket closed, connection from a none listed ip: " + clientIp + " / allowed ip: " + ALLOWED_IP);
                     clientSocket.close();
                     break;
@@ -239,13 +241,26 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
             //
             out.updateClientCount(clientList.size());
             //
+            // Close the redirection directly for the VNC connections
+            // Unfoternately i can't do this for RDP because it sometimes asks
+            // for credentials before showing the RDP screen
+            if (DESTINATION_PORT == 5900) {
+                out.showMessage("Will directly destroy the redirection, as the connection is of type VNC");
+                actionPerformed(null); // close listening after one connection   
+            }
+            //
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //
         out.showMessage("Redirection destroyed");
-        closeServerSocket();
+        //
+        if (acceptConnections == true) {
+            closeServerSocket();
+        }
+        //
     }
 
     /**
