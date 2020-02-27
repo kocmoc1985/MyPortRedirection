@@ -244,10 +244,13 @@ public class MyPortRedirection_NPMS implements Runnable, ActionListener {
             // Close the redirection directly for the VNC connections
             // Unfoternately i can't do this for RDP because it sometimes asks
             // for credentials before showing the RDP screen
-            if (DESTINATION_PORT == 5900) {
-                out.showMessage("Will directly destroy the redirection, as the connection is of type VNC");
-                actionPerformed(null); // close listening after one connection   
-            }
+            //
+            // This turned out to not be so good for VNC with the password authentication on - 
+            // the password should be entered very fast to be able to connect - so i disabled it [2020-02-27]
+//            if (DESTINATION_PORT == 5900) {
+//                out.showMessage("Will directly destroy the redirection, as the connection is of type VNC");
+//                actionPerformed(null); // close listening after one connection   
+//            }
             //
         }
     }
