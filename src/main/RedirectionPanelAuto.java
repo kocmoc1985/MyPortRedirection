@@ -267,7 +267,9 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             java.util.logging.Logger.getLogger(RedirectionPanelAuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //
+//        HelpM.checkDAC_b("2024-04-15");
+        //
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

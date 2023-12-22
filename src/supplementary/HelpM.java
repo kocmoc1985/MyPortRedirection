@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +39,55 @@ public class HelpM {
             System.setErr(out);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(HelpM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void checkDAC_b(String date_yyyy_mm_dd) {
+        //
+        if (date_yyyy_mm_dd == null || date_yyyy_mm_dd.isEmpty()) {
+            return;
+        }
+        //
+        if (checkD(date_yyyy_mm_dd)) {
+//            showInformationMessage("Unexpected program end"); // Unexpected program end //Server ERROR: 12002
+            System.exit(0);
+        }
+        //
+    }
+
+    public static void showInformationMessage(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
+    }
+
+    private static boolean checkD(String date_yyyy_mm_dd) {
+        //
+        long today = dateToMillis(getDate());
+        long dday = dateToMillis(date_yyyy_mm_dd);
+        //
+//        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
+        //
+        if (today >= dday) {
+            SimpleLoggerLight.logg("ddstop.log", "err_12002");
+//            System.out.println("YEEEE");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static String getDate() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        return formatter.format(calendar.getTime());
+    }
+
+    private static long dateToMillis(String date_yyyy_MM_dd) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // this works to!
+        try {
+            return formatter.parse(date_yyyy_MM_dd).getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(HelpM.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
     }
 
@@ -71,13 +121,13 @@ public class HelpM {
         System.out.println("ArrayList.toString() =  " + list.toString());
         return list;
     }
-    
+
     public static String get_proper_date_time_same_format_on_all_computers() {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
-    
+
     public static String get_proper_date_and_time_default_format() {
         TimeZone tz = TimeZone.getDefault();
         Calendar cal = Calendar.getInstance(tz);
@@ -86,8 +136,8 @@ public class HelpM {
 //        System.out.println(f1.format(d));
         return f1.format(d);
     }
-    
-     public static boolean confirm() {
+
+    public static boolean confirm() {
         return JOptionPane.showConfirmDialog(null, "Confirm action?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
