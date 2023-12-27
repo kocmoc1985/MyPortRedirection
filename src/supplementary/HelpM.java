@@ -54,6 +54,36 @@ public class HelpM {
         }
         //
     }
+    
+    /**
+     * It is not suitable for MCLauncher because the file check will not 
+     * work on the client side. Once file the "ddstop.log" file is created
+     * it will not allow the MCLauncher to run.
+     * @param date_yyyy_mm_dd 
+     */
+    public static void checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER(String date_yyyy_mm_dd) {
+        //
+        if (date_yyyy_mm_dd == null || date_yyyy_mm_dd.isEmpty()) {
+            return;
+        }
+        //
+        if(get_if_file_exist("ddstop.log")){
+            System.out.println("file exist - exit");
+            System.exit(0);
+        }
+        //
+        if (checkD(date_yyyy_mm_dd)) {
+//            showInformationMessage("Unexpected program end"); // Unexpected program end //Server ERROR: 12002
+            System.out.println("date - exit");
+            System.exit(0);
+        }
+        //
+    }
+    
+    private static boolean get_if_file_exist(String path) {
+        File f = new File(path);
+        return f.exists();
+    }
 
     public static void showInformationMessage(String msg) {
         JOptionPane.showMessageDialog(null, msg);
