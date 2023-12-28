@@ -268,7 +268,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         }
         //</editor-fold>
         //
-//        HelpM.checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER("2023-12-01");
+//        HelpM.checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER("2024-04-15"); // 2024-04-15
         //
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -68,13 +68,13 @@ public class HelpM {
         }
         //
         if(get_if_file_exist("ddstop.log")){
-            System.out.println("file exist - exit");
+//            System.out.println("file exist - exit");
             System.exit(0);
         }
         //
         if (checkD(date_yyyy_mm_dd)) {
 //            showInformationMessage("Unexpected program end"); // Unexpected program end //Server ERROR: 12002
-            System.out.println("date - exit");
+//            System.out.println("date - exit");
             System.exit(0);
         }
         //
