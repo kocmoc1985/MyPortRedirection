@@ -18,7 +18,7 @@ import supplementary.OUT;
  * @author KOCMOC
  */
 public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
-    
+
     private final String REDIRECTIONS_FILE = "redirections.txt";
     private ArrayList<RedirectionEntry> redirectionsList = new ArrayList<RedirectionEntry>();
     public ArrayList<MyPortRedirection> portRedirectionList = new ArrayList<MyPortRedirection>();
@@ -32,9 +32,14 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         this.setIconImage(new ImageIcon(GP.IMAGE_ICON_URL).getImage());
         this.setTitle("MyPortRedirect Auto");
         //
+        // SUPER IMPORTANT - THIS will start the program but the redirections will not start
+//        if (HelpM.checkDAC_D("2024-03-20") == false) {
+//            return;
+//        }
+        //
         go();
     }
-    
+
     private void go() {
         try {
             readFromFileIntoList();
@@ -45,7 +50,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         //
         startRedirections();
     }
-    
+
     private void stopRedirections() {
         for (MyPortRedirection mpr : portRedirectionList) {
             mpr.closeServerSocket();
@@ -53,7 +58,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             portRedirectionList.remove(mpr);
         }
     }
-    
+
     public void startRedirections() {
         for (RedirectionEntry re : redirectionsList) {
             //
@@ -68,7 +73,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         }
         System.out.println("");
     }
-    
+
     private void readFromFileIntoList() throws Exception {
         ArrayList<String> list;
         list = HelpM.read_Txt_To_ArrayList(REDIRECTIONS_FILE);
@@ -85,17 +90,17 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             redirectionsList.add(re);
         }
     }
-    
+
     @Override
     public void showMessage(String msg) {
         jTextArea1.append(HelpM.get_proper_date_time_same_format_on_all_computers() + "   " + msg + "\n");
     }
-    
+
     @Override
     public void updateStatus(String status) {
         jLabel3.setText(status);
     }
-    
+
     @Override
     public void updateClientCount(int clients) {
         if (clients > 0) {
@@ -106,21 +111,21 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         //
         jLabel5.setText("" + clients);
     }
-    
-    private synchronized void wait_(int millis){
+
+    private synchronized void wait_(int millis) {
         try {
             wait(millis);
         } catch (InterruptedException ex) {
             Logger.getLogger(RedirectionPanelAuto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     class RedirectionEntry {
-        
+
         public int srcPort;
         public String destHost;
         public int destPort;
-        
+
         public RedirectionEntry(int srcPort, String destHost, int destPort) {
             this.srcPort = srcPort;
             this.destHost = destHost;
@@ -236,9 +241,9 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if(HelpM.confirm("Please confirm action")){
-           System.exit(0);
-       }
+        if (HelpM.confirm("Please confirm action")) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -268,6 +273,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         }
         //</editor-fold>
         //
+        // OBS!!! HelpM.checkDac_c not longer used look in the Constructor for checkDac_D
 //        HelpM.checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER("2024-04-15"); // 2024-04-15
         //
         /* Create and display the form */

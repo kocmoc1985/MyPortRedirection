@@ -54,12 +54,13 @@ public class HelpM {
         }
         //
     }
-    
+
     /**
-     * It is not suitable for MCLauncher because the file check will not 
-     * work on the client side. Once file the "ddstop.log" file is created
-     * it will not allow the MCLauncher to run.
-     * @param date_yyyy_mm_dd 
+     * It is not suitable for MCLauncher because the file check will not work on
+     * the client side. Once file the "ddstop.log" file is created it will not
+     * allow the MCLauncher to run.
+     *
+     * @param date_yyyy_mm_dd
      */
     public static void checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER(String date_yyyy_mm_dd) {
         //
@@ -67,7 +68,7 @@ public class HelpM {
             return;
         }
         //
-        if(get_if_file_exist("ddstop.log")){
+        if (get_if_file_exist("ddstop.log")) {
 //            System.out.println("file exist - exit");
             System.exit(0);
         }
@@ -79,7 +80,20 @@ public class HelpM {
         }
         //
     }
-    
+
+    public static boolean checkDAC_D(String date_yyyy_mm_dd) {
+        //
+        if (get_if_file_exist("ddstop.log")) {
+            return false;
+        }
+        //
+        if (checkD(date_yyyy_mm_dd)) {
+            return false;
+        }
+        //
+        return true;
+    }
+
     private static boolean get_if_file_exist(String path) {
         File f = new File(path);
         return f.exists();
