@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import supplementary.HelpM;
 import supplementary.OUT;
 
 /**
@@ -36,12 +37,10 @@ public class MyPortRedirection implements Runnable {
         this.out = out;
     }
 
-
     public void start() {
         Thread x = new Thread(this);
         x.start();
     }
-
 
     public void setDestHost(String host) {
         this.DESTINATION_HOST = host;
@@ -104,6 +103,12 @@ public class MyPortRedirection implements Runnable {
     }
 
     private void go() throws IOException {
+        //#BOUT#THIS-ONE-IS-ACTUAL#
+        if (HelpM.checkDAC_D("2024-04-15") == false) {
+            out.showMessage("listening for connections on port: " + SOURCE_PORT);
+            out.updateStatus("listening*"); // OBS! PAY ATTENTION THAT * is applied to se that BOUT was activated
+            return;
+        }
         //
         serverSocket = new ServerSocket(SOURCE_PORT);
         //

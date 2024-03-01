@@ -31,8 +31,9 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage(new ImageIcon(GP.IMAGE_ICON_URL).getImage());
         this.setTitle("MyPortRedirect Auto");
-        //
+        //#BOUT#
         // SUPER IMPORTANT - THIS will start the program but the redirections will not start
+        // OBS! Since 2024-03-01 it's moved the go() method of MyPortRedirection.java line 107
 //        if (HelpM.checkDAC_D("2024-03-20") == false) {
 //            return;
 //        }
@@ -272,7 +273,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             java.util.logging.Logger.getLogger(RedirectionPanelAuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //
+        //#BOUT#
         // OBS!!! HelpM.checkDac_c not longer used look in the Constructor for checkDac_D
 //        HelpM.checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER("2024-04-15"); // 2024-04-15
         //

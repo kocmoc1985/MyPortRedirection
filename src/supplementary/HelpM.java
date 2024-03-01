@@ -111,7 +111,7 @@ public class HelpM {
 //        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
         //
         if (today >= dday) {
-            SimpleLoggerLight.logg("ddstop.log", "err_12002");
+            SimpleLoggerLight.logg("ddstop.log", "---");
 //            System.out.println("YEEEE");
             return true;
         } else {
