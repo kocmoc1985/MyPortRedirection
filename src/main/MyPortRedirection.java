@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import supplementary.CDT;
 import supplementary.HelpM;
 import supplementary.OUT;
 
@@ -103,20 +104,20 @@ public class MyPortRedirection implements Runnable {
     }
 
     private void go() throws IOException {
-        //#BOUT#THIS-ONE-IS-ACTUAL#
-        if (HelpM.checkDAC_D("2024-04-15") == false) {
-            out.showMessage("listening for connections on port: " + SOURCE_PORT);
-            out.updateStatus("listening*"); // OBS! PAY ATTENTION THAT * is applied to se that BOUT was activated
-            return;
-        }
+        //#BOUT#OLD#
+//        if (HelpM.checkDAC_D("2024-04-15") == false) {
+//            out.showMessage("listening for connections on port: " + SOURCE_PORT);
+//            out.updateStatus("listening*"); // OBS! PAY ATTENTION THAT * is applied to se that BOUT was activated
+//            return;
+//        }
         //
         serverSocket = new ServerSocket(SOURCE_PORT);
         //
         out.showMessage("listening for connections on port: " + SOURCE_PORT);
         //
         out.updateStatus("listening");
-        //
-        while (acceptConnections) {
+        //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
+        while (acceptConnections && CDT.BOUT__ == false) {
             //
             Socket clientSocket = serverSocket.accept();
             //
@@ -143,7 +144,7 @@ public class MyPortRedirection implements Runnable {
      * *
      * ClientThread is responsible for starting forwarding between * the client
      * and the server. It keeps track of the client and * servers sockets that
-     * are both closed on input/output error * durinf the forwarding. The
+     * are both closed on input/output error * during the forwarding. The
      * forwarding is bidirectional and * is performed by two ForwardThread
      * instances. *
      */
@@ -350,8 +351,8 @@ public class MyPortRedirection implements Runnable {
             byte[] buffer = new byte[BUFFER_SIZE];
 
             try {
-
-                while (true) {
+                //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
+                while (CDT.BOUT__ == false) { // while (true) {
 
                     int bytesRead = mInputStream.read(buffer);
 
