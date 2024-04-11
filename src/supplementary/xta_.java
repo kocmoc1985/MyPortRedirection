@@ -15,7 +15,8 @@ public class xta_ {
     //%all-dates-between-this-tag-are-checked-2024-03-26%
 //    public final static String C_UUID = "1712700000000";// 2024-04-10
 //    public final static String C_UUID = "1713564000000";// 2024-04-20
-    public final static String C_UUID = "1714428000000";// 2024-04-30
+//    public final static String C_UUID = "1714428000000";// 2024-04-30
+      public final static String C_UUID = "1715032800000";// 2024-05-07 // OBS!! CHECKED 2024-04-11
 //    public final static String C_UUID = "1715724000000";// 2024-05-15
 //    public final static String C_UUID = "1717279200000";// 2024-06-02
 //    public final static String C_UUID = "1718575200000";// 2024-06-17

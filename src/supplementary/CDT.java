@@ -69,13 +69,13 @@ public class CDT implements Runnable {
         //
         if (get_if_file_exist("ddstop.log")) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections");
+            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
 //            e();
         }
         //
         if (checkDMS(date_ms)) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections");
+            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
 //            e();
         }
         //
