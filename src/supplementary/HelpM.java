@@ -42,7 +42,7 @@ public class HelpM {
         }
     }
 
-    public static void checkDAC_b(String date_yyyy_mm_dd) {
+    private static void checkDAC_b(String date_yyyy_mm_dd) {
         //
         if (date_yyyy_mm_dd == null || date_yyyy_mm_dd.isEmpty()) {
             return;
@@ -62,7 +62,7 @@ public class HelpM {
      *
      * @param date_yyyy_mm_dd
      */
-    public static void checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER(String date_yyyy_mm_dd) {
+    private static void checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER(String date_yyyy_mm_dd) {
         //
         if (date_yyyy_mm_dd == null || date_yyyy_mm_dd.isEmpty()) {
             return;
@@ -81,7 +81,7 @@ public class HelpM {
         //
     }
 
-    public static boolean checkDAC_D(String date_yyyy_mm_dd) {
+    private static boolean checkDAC_D(String date_yyyy_mm_dd) {
         //
         if (get_if_file_exist("ddstop.log")) {
             return false;

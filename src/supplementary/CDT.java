@@ -25,6 +25,7 @@ public class CDT implements Runnable {
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
+    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
 
     public CDT(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
@@ -67,7 +68,7 @@ public class CDT implements Runnable {
 
     private void checkDAC_DMS_B(long date_ms) {
         //
-        if (get_if_file_exist("ddstop.log")) {
+        if (get_if_file_exist(BOUT_LOG)) {
             BOUT__ = true;
             RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
 //            e();
@@ -89,7 +90,7 @@ public class CDT implements Runnable {
 //        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
         //
         if (today >= dday) {
-            SimpleLoggerLight.logg("ddstop.log", "");
+            SimpleLoggerLight.logg_bout(BOUT_LOG, ""); // #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
 //            System.out.println("YEEEE");
             return true;
         } else {
