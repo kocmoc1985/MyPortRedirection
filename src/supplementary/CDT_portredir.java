@@ -20,21 +20,21 @@ import main.RedirectionPanelAuto;
  *
  * @author KOCMOC
  */
-public class CDT implements Runnable {
+public class CDT_portredir implements Runnable {
 
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
-    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
+    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
 
-    public CDT(int check_interval_minutes, long date_in_millis) {
+    public CDT_portredir(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
         this.date_millis = date_in_millis;
         startThread();
     }
 
     public static Long get() { // Remember that you can use ServerAdmin to convert date to millis
-        xta_ atx__ = new xta_();
+        xta_portredir atx__ = new xta_portredir();
         return atx__.get_();
     }
 
@@ -47,7 +47,7 @@ public class CDT implements Runnable {
         try {
             wait(minutes_to_milliseconds_converter(minutes));
         } catch (InterruptedException ex) {
-            Logger.getLogger(CDT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_portredir.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -90,7 +90,7 @@ public class CDT implements Runnable {
 //        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
         //
         if (today >= dday) {
-            SimpleLoggerLight.logg_bout(BOUT_LOG, ""); // #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
+            SimpleLoggerLight.logg_bout(BOUT_LOG, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
 //            System.out.println("YEEEE");
             return true;
         } else {
@@ -114,7 +114,7 @@ public class CDT implements Runnable {
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {
-            Logger.getLogger(CDT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_portredir.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }

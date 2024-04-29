@@ -10,7 +10,7 @@ package supplementary;
  *
  * @author KOCMOC
  */
-public class xta_ {
+public class xta_portredir {
 
     //%all-dates-between-this-tag-are-checked-2024-03-26%
 //    public final static String C_UUID = "1712700000000";// 2024-04-10
