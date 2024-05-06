@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import supplementary.CDT_portredir;
+import supplementary.CDT_p;
 import supplementary.GP;
 import supplementary.HelpM;
 import supplementary.OUT;
@@ -45,7 +45,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // OBS! Don't forget to use the OBFUSCATED .jar
         // OBS! Don't forget to disable "bout-debug-outputs" to console: search for #BOUT#OUTPUT-TO-CONSOLE#
         // OBS! REMEMBER if the name of button is "Stop redirections" with small "r" it means that the bout was triggered
-        CDT_portredir cdt = new CDT_portredir(368, CDT_portredir.get()); // 37
+        CDT_p cdt = new CDT_p(123, CDT_p.get()); // 37
         //
         go();
     }

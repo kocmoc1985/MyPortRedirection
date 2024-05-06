@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import supplementary.CDT_portredir;
+import supplementary.CDT_p;
 import supplementary.HelpM;
 import supplementary.OUT;
 
@@ -117,7 +117,7 @@ public class MyPortRedirection implements Runnable {
         //
         out.updateStatus("listening");
         //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
-        while (acceptConnections && CDT_portredir.BOUT__ == false) {
+        while (acceptConnections && CDT_p.BOUT__ == false) {
             //
             Socket clientSocket = serverSocket.accept();
             //
@@ -352,7 +352,7 @@ public class MyPortRedirection implements Runnable {
 
             try {
                 //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
-                while (CDT_portredir.BOUT__ == false) { // while (true) {
+                while (CDT_p.BOUT__ == false) { // while (true) {
 
                     int bytesRead = mInputStream.read(buffer);
 

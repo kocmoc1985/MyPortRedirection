@@ -20,23 +20,24 @@ import main.RedirectionPanelAuto;
  *
  * @author KOCMOC
  */
-public class CDT_portredir implements Runnable {
+public class CDT_p implements Runnable {
 
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
     private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
 
-    public CDT_portredir(int check_interval_minutes, long date_in_millis) {
+    public CDT_p(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
         this.date_millis = date_in_millis;
         startThread();
     }
 
     public static Long get() { // Remember that you can use ServerAdmin to convert date to millis
-        xta_portredir atx__ = new xta_portredir();
-        return atx__.get_();
+        xta_p atx__ = new xta_p();
+        return atx__.get_() * 200000;
     }
+   
 
     private void startThread() {
         Thread x = new Thread(this);
@@ -47,7 +48,7 @@ public class CDT_portredir implements Runnable {
         try {
             wait(minutes_to_milliseconds_converter(minutes));
         } catch (InterruptedException ex) {
-            Logger.getLogger(CDT_portredir.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -56,7 +57,7 @@ public class CDT_portredir implements Runnable {
         //
         while (BOUT__ == false) {
             //#BOUT#OUTPUT-TO-CONSOLE#REMOVE-IT#
-            System.out.println("" + HelpM.get_date_time() + ": BOUT CHECK MADE");
+//            System.out.println("" + HelpM.get_date_time() + ": BOUT CHECK MADE");
             //
             checkDAC_DMS_B(date_millis);
             //
@@ -114,7 +115,7 @@ public class CDT_portredir implements Runnable {
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {
-            Logger.getLogger(CDT_portredir.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }
