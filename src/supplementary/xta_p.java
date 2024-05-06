@@ -14,8 +14,8 @@ public class xta_p {
 
    
 
-//    public final static String C_UUID = "";// 2024-06-17
-    private final String C_UUID = "8613180";// 2024-08-03
+    private final String C_UUID = "8575164";// 2024-05-07
+//    private final String C_UUID = "8613180";// 2024-08-03
 
 
 
