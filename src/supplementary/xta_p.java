@@ -15,7 +15,8 @@ public class xta_p {
    
 
 //    private final String C_UUID = "8575164";// 2024-05-07
-    private final String C_UUID = "8586396";// 2024-06-02
+//    private final String C_UUID = "8586396";// 2024-06-02
+    private final String C_UUID = "8590284";// 2024-06-11
 //    private final String C_UUID = "8613180";// 2024-08-03
 
 
@@ -24,6 +25,9 @@ public class xta_p {
         return new Long(C_UUID);
     }
     
+    public int get__() {
+        return Integer.parseInt("30D40", 16); // HEX 30D40 = 200000
+    }
    
 
 }

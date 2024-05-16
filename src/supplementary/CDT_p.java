@@ -35,7 +35,7 @@ public class CDT_p implements Runnable {
 
     public static Long get() { // Remember that you can use ServerAdmin to convert date to millis
         xta_p atx__ = new xta_p();
-        return atx__.get_() * 200000;
+        return atx__.get_() * atx__.get__();
     }
    
 
