@@ -45,7 +45,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // OBS! Don't forget to use the OBFUSCATED .jar
         // OBS! Don't forget to disable "bout-debug-outputs" to console: search for #BOUT#OUTPUT-TO-CONSOLE#
         // OBS! REMEMBER if the name of button is "Stop redirections" with small "r" it means that the bout was triggered
-        CDT_p cdt = new CDT_p(607, CDT_p.get()); // 37
+        CDT_p cdt = new CDT_p(322, CDT_p.get()); // 37
         //
         go();
     }

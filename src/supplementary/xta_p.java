@@ -16,9 +16,9 @@ public class xta_p {
 
 //    private final String C_UUID = "8575164";// 2024-05-07
 //    private final String C_UUID = "8586396";// 2024-06-02
-    private final String C_UUID = "8590284";// 2024-06-11
+//    private final String C_UUID = "8590284";// 2024-06-11
 //    private final String C_UUID = "8613180";// 2024-08-03
-
+      private final String C_UUID = "8597628";// 2024-06-28
 
 
     public Long get_() {
