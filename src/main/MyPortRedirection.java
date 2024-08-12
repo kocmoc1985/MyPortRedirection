@@ -354,15 +354,19 @@ public class MyPortRedirection implements Runnable {
                 //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
                 while (CDT_p.BOUT__ == false) { // while (true) {
 
-                    int bytesRead = mInputStream.read(buffer);
+                    if (CDT_p.BOUT__ADDITIONAL == false) {
+                        int bytesRead = mInputStream.read(buffer);
 
+//                    int bytesRead = mInputStream.read(buffer);
 //                    System.out.println("FORWARD: " + new String(buffer));
-                    if (bytesRead == -1) {
-                        break; // End of stream is reached --> exit 
-                    }
-                    mOutputStream.write(buffer, 0, bytesRead);
+                        if (bytesRead == -1) {
+                            break; // End of stream is reached --> exit 
+                        }
+                        mOutputStream.write(buffer, 0, bytesRead);
 
-                    mOutputStream.flush();
+                        mOutputStream.flush();
+
+                    }
 
                 }
 

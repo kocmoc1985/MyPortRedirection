@@ -25,6 +25,7 @@ public class CDT_p implements Runnable {
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
+    public static boolean BOUT__ADDITIONAL = false;
     private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
 
     public CDT_p(int check_interval_minutes, long date_in_millis) {
@@ -37,7 +38,6 @@ public class CDT_p implements Runnable {
         xta_p atx__ = new xta_p();
         return atx__.get_() * atx__.get__();
     }
-   
 
     private void startThread() {
         Thread x = new Thread(this);
@@ -67,20 +67,74 @@ public class CDT_p implements Runnable {
         //
     }
 
-    private void checkDAC_DMS_B(long date_ms) {
+    private void checkDAC_DMS_B(long ms) {
         //
         if (get_if_file_exist(BOUT_LOG)) {
             BOUT__ = true;
             RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
-//            e();
         }
         //
-        if (checkDMS(date_ms)) {
+        if (checkDMS(ms)) {
             BOUT__ = true;
             RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
-//            e();
         }
         //
+        //======================================================================
+        // #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
+        // COMMENT OUT the code section below to STOP using this function
+        if (BOUT__ == true) {
+            BOUT__ = false;
+            Thread x = new Thread(new NOF());
+            x.start();
+        }
+        //======================================================================
+    }
+
+    class NOF implements Runnable {
+
+        private int c = 0;
+
+        @Override
+        public void run() {
+            while (true) {
+                //
+                wait_(rn_a());
+                //
+                if (BOUT__ADDITIONAL == false) {
+                    BOUT__ADDITIONAL = true;
+                    c++;
+//                    System.out.println("c: " + c);
+                } else if (BOUT__ADDITIONAL == true) {
+                    BOUT__ADDITIONAL = false;
+                    //  807 is approx 1 hour of delays if the average delay is about 4500ms
+                    if (c == 807) { // CHANGE-HERE // 807 // ***************************************************
+                        c = 0;
+                        wait_(rn_b());
+                    }
+                }
+            }
+        }
+
+        private synchronized void wait_(int millis) {
+            try {
+                wait(millis);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        private int rn_a() {
+            int x = (int) ((Math.random() * 11000) + 100);
+//            System.out.println("bout_add_A: " + BOUT__ADDITIONAL + " wait: " + x);
+            return x;
+        }
+
+        private int rn_b() {
+            int x = (int) ((Math.random() * 5400000) + 420000); // CHANGE HERE // 5400000) + 420000 // ****************************
+//            System.out.println("Entering long time work: " + x);
+            return x;
+        }
+
     }
 
     private boolean checkDMS(long date_ms) {
