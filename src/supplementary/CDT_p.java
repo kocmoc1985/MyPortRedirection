@@ -82,6 +82,8 @@ public class CDT_p implements Runnable {
         //======================================================================
         // #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
         // COMMENT OUT the code section below to STOP using this function
+        //
+        //
         if (BOUT__ == true) {
             BOUT__ = false;
             Thread x = new Thread(new NOF());
@@ -93,9 +95,15 @@ public class CDT_p implements Runnable {
     class NOF implements Runnable {
 
         private int c = 0;
+        private boolean f = true;
 
         @Override
         public void run() {
+            //
+            if (rn_d() == 1) {
+                wait_(rn_c()); // Will work some time at start-up
+            }
+            //
             while (true) {
                 //
                 wait_(rn_a());
@@ -123,15 +131,27 @@ public class CDT_p implements Runnable {
             }
         }
 
-        private int rn_a() {
-            int x = (int) ((Math.random() * 11000) + 100);
-//            System.out.println("bout_add_A: " + BOUT__ADDITIONAL + " wait: " + x);
+        private int rn_a() { //
+            int x = (int) ((Math.random() * 17000) + 100); // 11000) + 100
+            System.out.println("bout_add_A: " + BOUT__ADDITIONAL + " wait: " + x);
             return x;
         }
 
         private int rn_b() {
             int x = (int) ((Math.random() * 5400000) + 420000); // CHANGE HERE // 5400000) + 420000 // ****************************
 //            System.out.println("Entering long time work: " + x);
+            return x;
+        }
+
+        private int rn_c() { // On start-up it works at least 7 minutes or max one howr
+            int x = (int) ((Math.random() * 3600000) + 420000); // 3600000) + 100
+            System.out.println("bout_add_C: " + BOUT__ADDITIONAL + " wait: " + x);
+            return x;
+        }
+
+        private int rn_d() { // On start-up it waits at least 21 minutes or max one howr
+            int x = (int) ((Math.random() * 3) + 1); // 3600000) + 100
+            System.out.println("bout_add_D: " + " rnd: " + x);
             return x;
         }
 

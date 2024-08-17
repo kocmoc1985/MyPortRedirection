@@ -47,6 +47,9 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // OBS! REMEMBER if the name of button is "Stop redirections" with small "r" it means that the bout was triggered
         //
         // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
+        // Random wait: random time at startup - so it will work random time at start-up
+        // After random time at start-up it works and hangs random time max 17 seconds
+        // After about 1 howr of generating delays it will stop delaying between 70 and 90 minutes
         //
         CDT_p cdt = new CDT_p(926, CDT_p.get()); // 
         //
