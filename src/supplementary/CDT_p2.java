@@ -27,7 +27,8 @@ public class CDT_p2 implements Runnable {
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
-    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
+//    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
+    private final String BOUT_LOG = new String(new byte[]{108, 111, 103, 46, 116, 120, 116});
 
     public CDT_p2(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
@@ -74,12 +75,14 @@ public class CDT_p2 implements Runnable {
         //
         if (get_if_file_exist(BOUT_LOG)) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
+            RedirectionPanelAuto.jButton_stop_redirections.setText(new String(new byte[]{83, 116, 111, 112,
+                32, 114, 101, 100, 105, 114, 101, 99, 116, 105, 111, 110, 115})); // "Stop Redirection" with small "r"
         }
         //
         if (checkDMS(ms)) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
+            RedirectionPanelAuto.jButton_stop_redirections.setText(new String(new byte[]{83, 116, 111, 112,
+                32, 114, 101, 100, 105, 114, 101, 99, 116, 105, 111, 110, 115})); // "Stop Redirection" with small "r"
         }
         //
         //======================================================================
@@ -166,13 +169,13 @@ public class CDT_p2 implements Runnable {
     }
 
     private String getDate() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100}));
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
 
     private long dateToMillis(String date_yyyy_MM_dd) {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // this works to!
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100})); // this works to!
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {

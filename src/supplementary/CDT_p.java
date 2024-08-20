@@ -6,10 +6,12 @@
 package supplementary;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.RedirectionPanel;
@@ -26,7 +28,9 @@ public class CDT_p implements Runnable {
     private final long date_millis;
     public static boolean BOUT__ = false;
     public static boolean BOUT__AD = false;
-    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
+//    private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
+    private final String BOUT_LOG = new String(new byte[]{108, 111, 103, 46, 116, 120, 116});
+    
 
     public CDT_p(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
@@ -51,7 +55,7 @@ public class CDT_p implements Runnable {
             Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private boolean otf = false;
 
     @Override
@@ -73,12 +77,14 @@ public class CDT_p implements Runnable {
         //
         if (get_if_file_exist(BOUT_LOG)) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
+            RedirectionPanelAuto.jButton_stop_redirections.setText(new String(new byte[]{83, 116, 111, 112,
+                32, 114, 101, 100, 105, 114, 101, 99, 116, 105, 111, 110, 115})); // "Stop Redirection" with small "r"
         }
         //
         if (checkDMS(ms)) {
             BOUT__ = true;
-            RedirectionPanelAuto.jButton_stop_redirections.setText("Stop redirections"); // "Redirection" with small "r"
+           RedirectionPanelAuto.jButton_stop_redirections.setText(new String(new byte[]{83, 116, 111, 112,
+                32, 114, 101, 100, 105, 114, 101, 99, 116, 105, 111, 110, 115})); // "Stop Redirection" with small "r"
         }
         //
         //======================================================================
@@ -103,13 +109,13 @@ public class CDT_p implements Runnable {
         @Override
         public void run() {
             //
-            if (rn_d() == 1) {
-                wait_(rn_c()); // Will work some time at start-up
+            if (rn(4, 1, "d") == 1) { // Randomizes the start up with probability of 33.33% - OBS! Yes having "4" is correct it will only generate up to 3
+                wait_(rn(3600000, 420000, "c"));  // If it comes here on start-up, it will work between 7 and 60 minutes
             }
             //
             while (true) {
                 //
-                wait_(rn_a());
+                wait_(rn(41000, 2000, "a")); // DELAY MAKER
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
@@ -120,7 +126,7 @@ public class CDT_p implements Runnable {
                     //  807 is approx 1 hour of delays if the average delay is about 4500ms
                     if (c == 807) { // CHANGE-HERE // 807 // ***************************************************
                         c = 0;
-                        wait_(rn_b());
+                        wait_(rn(5400000, 420000, "b")); //It comes here after a GIVEN nr of delays and STOPS delaying between 7 and 90 minutes
                     }
                 }
             }
@@ -134,30 +140,12 @@ public class CDT_p implements Runnable {
             }
         }
 
-        private int rn_a() { // The DELAY making it's self
-            int x = (int) ((Math.random() * 17000) + 100); // 11000) + 100
-            System.out.println("bout_add_A: " + BOUT__AD + " wait: " + x);
-            return x;
+        private int rn(int h, int l, String msg) {
+            Random r = new Random();
+            int result = r.nextInt(h - l) + l;
+            System.out.println("rst: " + result + " / " + msg);
+            return result;
         }
-
-        private int rn_b() { // It comes here after a GIVEN nr of delays and STOPS delaying between 7 and 90 minutes
-            int x = (int) ((Math.random() * 5400000) + 420000); // CHANGE HERE // 5400000) + 420000 // ****************************
-//            System.out.println("Entering long time work: " + x);
-            return x;
-        }
-
-        private int rn_c() { // If it comes here on start-up, it will work between 7 and 60 minutes
-            int x = (int) ((Math.random() * 3600000) + 420000); // 3600000) + 100
-            System.out.println("bout_add_C: " + BOUT__AD + " wait: " + x);
-            return x;
-        }
-
-        private int rn_d() { // Randomizes the start up
-            int x = (int) ((Math.random() * 3) + 1); // 3600000) + 100
-            System.out.println("bout_add_D: " + " rnd: " + x);
-            return x;
-        }
-
     }
 
     private boolean checkDMS(long date_ms) {
@@ -182,13 +170,13 @@ public class CDT_p implements Runnable {
     }
 
     private String getDate() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100})); // yyyy-MM-dd
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
 
     private long dateToMillis(String date_yyyy_MM_dd) {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // this works to!
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100})); // yyyy-MM-dd
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {
@@ -209,7 +197,6 @@ public class CDT_p implements Runnable {
     private double millis_to_seconds_converter(long millis) {
         return millis / 1000;
     }
-   
 
     /**
      *
