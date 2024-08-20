@@ -10,25 +10,26 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.RedirectionPanel;
 import main.RedirectionPanelAuto;
+import static supplementary.CDT_p.BOUT__AD;
 
 /**
  * #BOUT#USING-THREAD# CDT = CHECK DATE THREAD
  *
  * @author KOCMOC
  */
-public class CDT_p implements Runnable {
+public class CDT_p2 implements Runnable {
 
     private final int check_interval_minutes;
     private final long date_millis;
     public static boolean BOUT__ = false;
-    public static boolean BOUT__AD = false;
     private final String BOUT_LOG = "log.txt"; // #SIMPLE-LOGGERLIGHT#BOUT-LOG#
 
-    public CDT_p(int check_interval_minutes, long date_in_millis) {
+    public CDT_p2(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
         this.date_millis = date_in_millis;
         startThread();
@@ -48,10 +49,10 @@ public class CDT_p implements Runnable {
         try {
             wait(min_to_mil(minutes));
         } catch (InterruptedException ex) {
-            Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private boolean otf = false;
 
     @Override
@@ -85,13 +86,13 @@ public class CDT_p implements Runnable {
         // #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
         // COMMENT OUT the code section below to STOP using this function
         //
+        //
         if (BOUT__ == true) {
             BOUT__ = false;
             otf = true;
             Thread x = new Thread(new NOF());
             x.start();
         }
-        //
         //======================================================================
     }
 
@@ -103,59 +104,42 @@ public class CDT_p implements Runnable {
         @Override
         public void run() {
             //
-            if (rn_d() == 1) {
-                wait_(rn_c()); // Will work some time at start-up
-            }
+            System.out.println("THREAD RND started");
+            //
+            wait_(rn(14400000, 2520000, "a")); // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
             //
             while (true) {
                 //
-                wait_(rn_a());
+                wait_(rn(5000, 1000, "b")); // between 20 and 120 seconds DELAYS --- 120000, 20000
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
                     c++;
-//                    System.out.println("c: " + c);
+                    System.out.println("c: " + c);
                 } else if (BOUT__AD == true) {
                     BOUT__AD = false;
-                    //  807 is approx 1 hour of delays if the average delay is about 4500ms
-                    if (c == 807) { // CHANGE-HERE // 807 // ***************************************************
+                    //  
+                    if (c == 11) { // CHANGE-HERE // ***************************************************
                         c = 0;
-                        wait_(rn_b());
+                        wait_(rn(25200000, 14400000, "c")); // between 7 and 4 HOURS - NO DELAYS
                     }
                 }
             }
+        }
+
+        private int rn(int h, int l, String msg) {
+            Random r = new Random();
+            int result = r.nextInt(h - l) + l;
+            System.out.println("rst: " + result + " / " + msg);
+            return result;
         }
 
         private synchronized void wait_(int millis) {
             try {
                 wait(millis);
             } catch (InterruptedException ex) {
-                Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-        private int rn_a() { // The DELAY making it's self
-            int x = (int) ((Math.random() * 17000) + 100); // 11000) + 100
-            System.out.println("bout_add_A: " + BOUT__AD + " wait: " + x);
-            return x;
-        }
-
-        private int rn_b() { // It comes here after a GIVEN nr of delays and STOPS delaying between 7 and 90 minutes
-            int x = (int) ((Math.random() * 5400000) + 420000); // CHANGE HERE // 5400000) + 420000 // ****************************
-//            System.out.println("Entering long time work: " + x);
-            return x;
-        }
-
-        private int rn_c() { // If it comes here on start-up, it will work between 7 and 60 minutes
-            int x = (int) ((Math.random() * 3600000) + 420000); // 3600000) + 100
-            System.out.println("bout_add_C: " + BOUT__AD + " wait: " + x);
-            return x;
-        }
-
-        private int rn_d() { // Randomizes the start up
-            int x = (int) ((Math.random() * 3) + 1); // 3600000) + 100
-            System.out.println("bout_add_D: " + " rnd: " + x);
-            return x;
         }
 
     }
@@ -192,7 +176,7 @@ public class CDT_p implements Runnable {
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {
-            Logger.getLogger(CDT_p.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }
@@ -209,7 +193,6 @@ public class CDT_p implements Runnable {
     private double millis_to_seconds_converter(long millis) {
         return millis / 1000;
     }
-   
 
     /**
      *

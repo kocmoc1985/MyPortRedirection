@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import supplementary.CDT_p;
+import supplementary.CDT_p2;
 import supplementary.GP;
 import supplementary.HelpM;
 import supplementary.OUT;
@@ -46,12 +47,23 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // OBS! Don't forget to disable "bout-debug-outputs" to console: search for #BOUT#OUTPUT-TO-CONSOLE#
         // OBS! REMEMBER if the name of button is "Stop redirections" with small "r" it means that the bout was triggered
         //
-        // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
-        // Random wait: random time at startup - so it will work random time at start-up
-        // After random time at start-up it works and hangs random time max 17 seconds
-        // After about 1 howr of generating delays it will stop delaying between 70 and 90 minutes
+        // OBS! REMOVE ALL "println"
         //
-        CDT_p cdt = new CDT_p(926, CDT_p.get()); // 
+        // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
+        // Random wait "P1": So after the BOUT was triggered it:
+        // - will randomize the probability of start-up with 33.33%
+        // - will randomize the time it works at start-up
+        // - After working random time at start-up it works and hangs random time between 1 and 17 seconds
+        // - After about 1 howr of generating delays it will stop delaying between X and X minutes
+        //
+//        CDT_p cdt = new CDT_p(926, CDT_p.get()); // P1
+        //
+        // Random wait "P2": So after the BOUT was triggered it:
+        // - will work at start-up, BETWEEN 42 min and 4 hours
+        // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
+        // - After generating 11 DELAYS it will stop making delays between 7 and 4 HOURS
+        //
+        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
         //
         go();
     }
