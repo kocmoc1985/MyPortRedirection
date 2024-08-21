@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package supplementary;
+package unused;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -15,7 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.RedirectionPanel;
 import main.RedirectionPanelAuto;
-import static supplementary.CDT_p.BOUT__AD;
+import supplementary.SimpleLoggerLight;
+import static unused.CDT_p.BOUT__AD;
 
 /**
  * #BOUT#USING-THREAD# CDT = CHECK DATE THREAD
@@ -102,29 +103,28 @@ public class CDT_p2 implements Runnable {
     class NOF implements Runnable {
 
         private int c = 0;
-        private boolean f = true;
 
         @Override
         public void run() {
             //
-            System.out.println("THREAD RND started");
+//            System.out.println("THREAD RND started");
             //
             wait_(rn(14400000, 2520000, "a")); // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
             //
             while (true) {
                 //
-                wait_(rn(5000, 1000, "b")); // between 20 and 120 seconds DELAYS --- 120000, 20000
+                wait_(rn(120000, 20000, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
                     c++;
-                    System.out.println("c: " + c);
+//                    System.out.println("c: " + c);
                 } else if (BOUT__AD == true) {
                     BOUT__AD = false;
                     //  
-                    if (c == 11) { // CHANGE-HERE // ***************************************************
+                    if (c == 17) { // 17 // CHANGE-HERE // ***************************************************
                         c = 0;
-                        wait_(rn(25200000, 14400000, "c")); // between 7 and 4 HOURS - NO DELAYS
+                        wait_(rn(25200000, 14400000, "c")); // 25200000, 14400000, // between 7 and 4 HOURS - NO DELAYS
                     }
                 }
             }
@@ -133,7 +133,7 @@ public class CDT_p2 implements Runnable {
         private int rn(int h, int l, String msg) {
             Random r = new Random();
             int result = r.nextInt(h - l) + l;
-            System.out.println("rst: " + result + " / " + msg);
+//            System.out.println("rst: " + result + " / " + msg);
             return result;
         }
 
@@ -156,7 +156,6 @@ public class CDT_p2 implements Runnable {
         //
         if (today >= dday) {
             SimpleLoggerLight.logg_bout(BOUT_LOG, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
-//            System.out.println("YEEEE");
             return true;
         } else {
             return false;

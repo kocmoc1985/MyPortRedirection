@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package supplementary;
+package unused;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.RedirectionPanel;
 import main.RedirectionPanelAuto;
+import supplementary.SimpleLoggerLight;
 
 /**
  * #BOUT#USING-THREAD# CDT = CHECK DATE THREAD
@@ -104,7 +105,6 @@ public class CDT_p implements Runnable {
     class NOF implements Runnable {
 
         private int c = 0;
-        private boolean f = true;
 
         @Override
         public void run() {
