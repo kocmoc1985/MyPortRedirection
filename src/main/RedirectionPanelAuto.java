@@ -14,6 +14,7 @@ import unused.CDT_p2;
 import supplementary.GP;
 import supplementary.HelpM;
 import supplementary.OUT;
+import unused.CDT_p3;
 
 /**
  *
@@ -24,7 +25,6 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
     private final String REDIRECTIONS_FILE = "redirections.txt";
     private ArrayList<RedirectionEntry> redirectionsList = new ArrayList<RedirectionEntry>();
     public ArrayList<MyPortRedirection> portRedirectionList = new ArrayList<MyPortRedirection>();
-    
 
     /**
      * Creates new form RedirectionPanelAuto
@@ -63,12 +63,12 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
         //
-        CDT_p2 cdt = new CDT_p2(187, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
+//        CDT_p2 cdt = new CDT_p2(187, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
+        CDT_p3 cdt = new CDT_p3(1, CDT_p3.get()); // P3 // RARE-DELAYS ALGOR JUST ANOTHER TIMINGS
         //
         // OBS! REMOVE ALL "println"
         go();
     }
-    
 
     private void go() {
         try {

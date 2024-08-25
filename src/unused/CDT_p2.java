@@ -94,10 +94,14 @@ public class CDT_p2 implements Runnable {
         if (BOUT__ == true) {
             BOUT__ = false;
             otf = true;
-            Thread x = new Thread(new NOF());
-            x.start();
+            startThread_();
         }
         //======================================================================
+    }
+
+    protected void startThread_() {
+        Thread x = new Thread(new NOF());
+        x.start();
     }
 
     class NOF implements Runnable {
@@ -168,13 +172,13 @@ public class CDT_p2 implements Runnable {
     }
 
     private String getDate() {
-        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100}));
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121, 121, 121, 121, 45, 77, 77, 45, 100, 100}));
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
 
     private long dateToMillis(String date_yyyy_MM_dd) {
-        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121,121,121,121,45,77,77,45,100,100})); // this works to!
+        DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121, 121, 121, 121, 45, 77, 77, 45, 100, 100})); // this works to!
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
         } catch (ParseException ex) {
