@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unused;
+package oanvand;
 
 /**
  * Here is the bout date in millis defined #BOUT#USING-THREAD#
@@ -19,6 +19,7 @@ public class xta_p {
 //      private final String C_UUID = "8597628";// 2024-06-28
 //      private final String C_UUID = "8615772";// 2024-08-09
         private final String C_UUID = "8621820";// 2024-08-23
+//    private final String C_UUID = "8624412";// 2024-08-29
 //      private final String C_UUID = "8644284";// 2024-10-14
 
     public Long get_() {

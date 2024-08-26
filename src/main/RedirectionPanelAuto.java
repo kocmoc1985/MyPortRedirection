@@ -9,12 +9,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import unused.CDT_p;
-import unused.CDT_p2;
+import oanvand.CDT_p4;
+import oanvand.CDT_p2;
 import supplementary.GP;
 import supplementary.HelpM;
 import supplementary.OUT;
-import unused.CDT_p3;
+import oanvand.CDT_p3;
+import oanvand.CDT_p5;
+import oanvand.CDT_p6;
 
 /**
  *
@@ -34,12 +36,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage(new ImageIcon(GP.IMAGE_ICON_URL).getImage());
         this.setTitle("MyPortRedirect Auto");
-        //#BOUT#OLD#
-        // SUPER IMPORTANT - THIS will start the program but the redirections will not start
-        // OBS! Since 2024-03-01 it's moved the go() method of MyPortRedirection.java line 107
-//        if (HelpM.checkDAC_D("2024-03-20") == false) {
-//            return;
-//        }
+        //
         //#BOUT#USING-THREAD#INIT#IMPLEMNTED#2024-03-26#
         // FIRST arg: "check-interval in minutes", should be more then 20 when distributed..
         // SECOND arg: is the "bout-date" Just don't touch it and change it from the "xta_.java"
@@ -49,22 +46,32 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         //
         // OBS! REMOVE ALL "println"
         //
-        // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
-        // Random wait "P1": So after the BOUT was triggered it:
-        // - will randomize the probability of start-up with 33.33%
-        // - will randomize the time it works at start-up
-        // - After working random time at start-up it works and hangs random time between 1 and 17 seconds
-        // - After about 1 howr of generating delays it will stop delaying between X and X minutes
-        //
-//        CDT_p cdt = new CDT_p(926, CDT_p.get()); // P1
-        //
+        // OBS! P2 is the SUPER CLASS now. IF YOU WANT "SIMPLE BOUT WITHOUT RANDOM" use P5
         // Random wait "P2": So after the BOUT was triggered it:
         // - will work at start-up, BETWEEN 42 min and 4 hours
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
-        //
 //        CDT_p2 cdt = new CDT_p2(187, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
-        CDT_p3 cdt = new CDT_p3(1, CDT_p3.get()); // P3 // RARE-DELAYS ALGOR JUST ANOTHER TIMINGS
+        //
+        //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
+        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get()); // 
+        //
+        // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
+        // Random wait "P4": So after the BOUT was triggered it:
+        // - will randomize the probability of start-up with 33.33%
+        // - will randomize the time it works at start-up
+        // - After working random time at start-up it works and hangs random time between 1 and 17 seconds
+        // - After about 1 howr of generating delays it will stop delaying between X and X minutes
+//        CDT_p4 cdt = new CDT_p4(926, CDT_p2.get()); // P4
+        //
+        //
+        // P5 is the one without any RANDOM delays
+//        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get()); // P5
+        //
+        //
+        //P6 is the one which DOES NOT WORK regardless date, file or anything other, therefor i pass 0 as arguments
+//        CDT_p6 cdt = new CDT_p6(0, 0); // P5
+        //
         //
         // OBS! REMOVE ALL "println"
         go();
@@ -174,7 +181,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton_stop_redirections = new javax.swing.JButton();
+        jButton_str = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -188,10 +195,10 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton_stop_redirections.setText("Stop Redirections");
-        jButton_stop_redirections.addActionListener(new java.awt.event.ActionListener() {
+        jButton_str.setText("Stop Redirections");
+        jButton_str.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_stop_redirectionsActionPerformed(evt);
+                jButton_strActionPerformed(evt);
             }
         });
 
@@ -227,7 +234,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_stop_redirections, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_str, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
@@ -255,7 +262,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(45, 45, 45)
-                .addComponent(jButton_stop_redirections)
+                .addComponent(jButton_str)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,9 +273,9 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_stop_redirectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_stop_redirectionsActionPerformed
+    private void jButton_strActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_strActionPerformed
         stopRedirections();
-    }//GEN-LAST:event_jButton_stop_redirectionsActionPerformed
+    }//GEN-LAST:event_jButton_strActionPerformed
 
     private void jButton2_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_ExitActionPerformed
         if (HelpM.confirm("Please confirm action")) {
@@ -316,7 +323,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jButton2_Exit;
-    public static javax.swing.JButton jButton_stop_redirections;
+    public static javax.swing.JButton jButton_str;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

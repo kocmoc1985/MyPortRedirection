@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unused;
+package oanvand;
 
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static unused.CDT_p.BOUT__AD;
 
 /**
  *
@@ -27,7 +26,6 @@ public class CDT_p3 extends CDT_p2 {
     }
     
     
-
     class NOF implements Runnable {
         //
         private int c = 0;
@@ -35,9 +33,9 @@ public class CDT_p3 extends CDT_p2 {
         @Override
         public void run() {
             //
-//            System.out.println("THREAD RND started");
+            System.out.println("THREAD RND started");
             //
-            wait_(rn(8280000, 1920000, "a")); // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 32 min and 138 minutes
+//            wait_(rn(8280000, 1920000, "a")); // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 32 min and 138 minutes
             //
             while (true) {
                 //
@@ -46,7 +44,7 @@ public class CDT_p3 extends CDT_p2 {
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
                     c++;
-//                    System.out.println("c: " + c);
+                    System.out.println("c: " + c);
                 } else if (BOUT__AD == true) {
                     BOUT__AD = false;
                     //  
@@ -61,7 +59,7 @@ public class CDT_p3 extends CDT_p2 {
         private int rn(int h, int l, String msg) {
             Random r = new Random();
             int result = r.nextInt(h - l) + l;
-//            System.out.println("rst: " + result + " / " + msg);
+            System.out.println("rst: " + result + " / " + msg);
             return result;
         }
 

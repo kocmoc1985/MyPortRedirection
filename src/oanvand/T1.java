@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package unused;
+package oanvand;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author KOCMOC
  */
-public class T2 implements Runnable {
+public class T1 implements Runnable {
 
     @Override
     public void run() {
@@ -26,11 +26,12 @@ public class T2 implements Runnable {
     }
 
     public void start() throws IOException {
-        System.out.println("1433");
+        System.out.println("1434");
         //
-        ServerSocket serverSocket = new ServerSocket(1433);
-      serverSocket.setReuseAddress(true);
+        ServerSocket serverSocket = new ServerSocket(1434);
+        serverSocket.setReuseAddress(true);
         serverSocket.accept();
+
         //
         System.out.println("Accepted");
     }
