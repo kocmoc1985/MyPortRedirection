@@ -49,7 +49,8 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - will work at start-up, BETWEEN 42 min and 4 hours
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
-        // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days
+        // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days - #BOUT-SECURE-THREAD-ST#
+        // Regarding the #TODAY-LESS-THEN-SET#. If the date is less then the date "xta_p.C_DAGIDAG" - an err.txt will generated and PROGRAM will shutdown immediately by #BOUT-SECURE-THREAD-ST#
         CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES

@@ -21,9 +21,18 @@ public class xta_p {
 //        private final String C_UUID = "8621820";// 2024-08-23
     private final String C_UUID = "8624412";// 2024-08-29
 //      private final String C_UUID = "8644284";// 2024-10-14
+    //
+    //
+    // THIS ONE SHOULD ALSO BE CHANGED EACH TIME********************************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // I think it makes sence to set it (IDAG - 1 DAG) för säkerhetskull - för att det kan vara olika tidszoner!?
+    private final String C_DAGIDAG = "8623548";// 2024-08-27 
 
     public Long get_() {
         return new Long(C_UUID);
+    }
+    
+    public Long get_idg() { // idg = idag
+        return new Long(C_DAGIDAG); // #TODAY-LESS-THEN-SET#
     }
 
     public int get__() {

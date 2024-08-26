@@ -42,6 +42,11 @@ public class CDT_p2 implements Runnable {
         return atx__.get_() * atx__.get__();
     }
 
+    public static Long get____() { // Remember that you can use ServerAdmin to convert date to millis
+        xta_p atx__ = new xta_p();
+        return atx__.get_idg() * atx__.get__();
+    }
+
     private void kor_thr_this() { // kor = kör
         Thread x = new Thread(this);
         x.start();
@@ -65,7 +70,7 @@ public class CDT_p2 implements Runnable {
             return; // it should not continue if the "SECURE THREAD" was triggered
         }
         //
-//        System.out.println("*********************");
+        System.out.println("*********************");
         //
         while (BOUT__ == false && otf == false) {
             //#BOUT#OUTPUT-TO-CONSOLE#REMOVE-IT#
@@ -100,7 +105,7 @@ public class CDT_p2 implements Runnable {
 
     protected void chd(long ms) {
         //
-        if (gife(BOUT_LOG)) {
+        if (gife(BOUT_LOG)) { // gife = get if file exists
             strb(); // "Stop Redirection" with small "r"
         }
         //
@@ -185,9 +190,26 @@ public class CDT_p2 implements Runnable {
     private boolean ch_dms(long date_ms, String bl) { // Check date milliseconds
         //
         long idag = dtm(gd());
-        long dday = date_ms;
+        long bdag = date_ms; // bdag = bout dag
         //
-        if (idag >= dday) {
+        if (idag >= bdag) {
+            SimpleLoggerLight.logg_bout(bl, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
+            return true;
+        } else {
+            return false;
+        }
+        //
+    }
+    
+    private boolean ch_dms_b(long date_ms, String bl) { // Check date milliseconds
+        //
+        long idag = dtm(gd());
+        long bdag = date_ms; // bdag = bout dag
+        //
+        long chk = get____(); // "chk" är "C_DAGIDAG" från "xta_p"
+        //
+        //(idag < chk)  // #TODAY-LESS-THEN-SET# Det betyder om idag är datumet mindre än den som är satt i xta_p då har någon manipulerat
+        if (idag >= bdag || idag < chk) {
             SimpleLoggerLight.logg_bout(bl, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
             return true;
         } else {
@@ -203,6 +225,7 @@ public class CDT_p2 implements Runnable {
 
     private class ST implements Runnable { // SECURE THREAD - this one makes sure the total BOUT happens
         //#BOUT-SECURE-THREAD-ST#
+
         private long bdms = 0; // bout date final
 
         public ST() {
@@ -227,7 +250,7 @@ public class CDT_p2 implements Runnable {
                     strb(); // "Stop Redirection" with small "r"
                 }
                 //
-                if (ch_dms(bdms, BOUT_LOG_2)) {
+                if (ch_dms_b(bdms, BOUT_LOG_2)) { // OBS! ch_dms_b - som också kollar up om dagen idag är ej manipulerat
                     strb(); // "Stop Redirection" with small "r"
                 }
                 //
@@ -263,7 +286,6 @@ public class CDT_p2 implements Runnable {
         }
     }
 
-   
     private long m_t_m(long m) { // Minutes to millis
         return m * 60000;
     }
