@@ -118,7 +118,7 @@ public class MyPortRedirection implements Runnable {
         //
         out.updateStatus("listening");
         //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
-        while (acceptConnections && CDT_p4.BOUT__ == false) {
+        while (acceptConnections && CDT_p2.BOUT__ == false) {
             //
             Socket clientSocket = serverSocket.accept();
             //
@@ -348,9 +348,9 @@ public class MyPortRedirection implements Runnable {
          */
         @Override
         public void run() {
-
+            //
             byte[] buffer = new byte[BUFFER_SIZE];
-
+            //
             try {
                 //#BOUT#USING-THREAD#IMPLEMNTED#2024-03-26#
                 while (!CDT_p2.BOUT__) { // while (true) {

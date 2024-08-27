@@ -20,4 +20,11 @@ public class CDT_p5 extends CDT_p2 {
         // HAVING IT EMPTY MAKES THAT THE RANDOM DELAY FUNCTION WILL BE DISABLED
     }
 
+    @Override
+    protected boolean start_st() {
+        return false;
+    }
+    
+    
+
 }

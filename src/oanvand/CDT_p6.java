@@ -5,7 +5,6 @@
  */
 package oanvand;
 
-import main.RedirectionPanelAuto;
 import static oanvand.CDT_p2.BOUT__;
 
 /**

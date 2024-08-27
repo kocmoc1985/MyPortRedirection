@@ -29,6 +29,7 @@ public class CDT_p2 implements Runnable {
     public static boolean BOUT__ = false;
     public static boolean BOUT__AD = false;
     private final String BOUT_LOG = new String(new byte[]{108, 111, 103, 46, 116, 120, 116}); // "log.txt"
+    private final String BOUT_LOG_2 = new String(new byte[]{101, 114, 114, 46, 116, 120, 116}); // "err.txt"
 
     public CDT_p2(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
@@ -48,7 +49,7 @@ public class CDT_p2 implements Runnable {
 
     private synchronized void wait_(int minutes) {
         try {
-            wait(min_to_mil(minutes));
+            wait(m_t_m(minutes));
         } catch (InterruptedException ex) {
             Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,6 +59,13 @@ public class CDT_p2 implements Runnable {
 
     @Override
     public void run() {
+        //
+        // OBS! STARTS THE SECURE THREAD TO BE SURE THAT IT'S COMPLETELY UNUSABLE AFTER SOME DATE
+        if (start_st()) {
+            return; // it should not continue if the "SECURE THREAD" was triggered
+        }
+        //
+        System.out.println("*********************");
         //
         while (BOUT__ == false && otf == false) {
             //#BOUT#OUTPUT-TO-CONSOLE#REMOVE-IT#
@@ -71,15 +79,33 @@ public class CDT_p2 implements Runnable {
         //
     }
 
+    protected boolean start_st() {
+        ST st = new ST();
+        Thread x = new Thread(st); // START "SECURE THREAD"
+        x.start();
+        //
+//        System.out.println("BOUT before wait: " + BOUT__);
+        //
+        synchronized (st) {
+            try {
+                st.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //
+//        System.out.println("BOUT after wait: " + BOUT__);
+        //
+        return BOUT__;
+    }
+
     protected void chd(long ms) {
         //
-        if (get_if_file_exist(BOUT_LOG)) {
-//            BOUT__ = true;
+        if (gife(BOUT_LOG)) {
             strb(); // "Stop Redirection" with small "r"
         }
         //
-        if (checkDMS(ms)) {
-//            BOUT__ = true;
+        if (checkDMS(ms, BOUT_LOG)) {
             strb(); // "Stop Redirection" with small "r"
         }
         //
@@ -98,9 +124,9 @@ public class CDT_p2 implements Runnable {
             32, 114, 101, 100, 105, 114, 101, 99, 116, 105, 111, 110, 115})); // "Stop Redirection" with small "r"
     }
 
-    protected void b_ad() {
+    protected void b_ad() { // BOUT WITH RANDOM
         if (BOUT__ == true) {
-            BOUT__ = false;
+            BOUT__ = false; // IF it not set to false here it will not be able to "RANDOMIZE"
             otf = true;
             startThread_();
         }
@@ -111,31 +137,31 @@ public class CDT_p2 implements Runnable {
         x.start();
     }
 
-    class NOF implements Runnable {
+    class NOF implements Runnable { // THIS IS THE "RANDOM" THREAD
 
         private int c = 0;
 
         @Override
         public void run() {
             //
-//            System.out.println("THREAD RND started");
+            System.out.println("THREAD RND started");
             //
-            wait_(rn(14400000, 2520000, "a")); // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
+            wait_(rn(180000, 170000, "a")); // 14400000, 2520000, // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
             //
             while (true) {
                 //
-                wait_(rn(120000, 20000, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
+                wait_(rn(1000, 200, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
                     c++;
-//                    System.out.println("c: " + c);
+                    System.out.println("c: " + c);
                 } else if (BOUT__AD == true) {
                     BOUT__AD = false;
                     //  
                     if (c == 17) { // 17 // CHANGE-HERE // ***************************************************
                         c = 0;
-                        wait_(rn(25200000, 14400000, "c")); // 25200000, 14400000, // between 7 and 4 HOURS - NO DELAYS
+                        wait_(rn(10000, 1000, "c")); // 25200000, 14400000, // between 7 and 4 HOURS - NO DELAYS
                     }
                 }
             }
@@ -144,7 +170,7 @@ public class CDT_p2 implements Runnable {
         private int rn(int h, int l, String msg) {
             Random r = new Random();
             int result = r.nextInt(h - l) + l;
-//            System.out.println("rst: " + result + " / " + msg);
+            System.out.println("rst: " + result + " / " + msg);
             return result;
         }
 
@@ -158,33 +184,79 @@ public class CDT_p2 implements Runnable {
 
     }
 
-    private boolean checkDMS(long date_ms) {
+    private boolean checkDMS(long date_ms, String bl) {
         //
-        long today = dateToMillis(getDate());
+        long today = dtm(gd());
         long dday = date_ms;
         //
 //        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
         //
         if (today >= dday) {
-            SimpleLoggerLight.logg_bout(BOUT_LOG, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
+            SimpleLoggerLight.logg_bout(bl, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
             return true;
         } else {
             return false;
         }
     }
 
-    private boolean get_if_file_exist(String path) {
+    private boolean gife(String path) {
         File f = new File(path);
         return f.exists();
     }
 
-    private String getDate() {
+    private class ST implements Runnable { // SECURE THREAD - this one makes sure the total BOUT happens
+        //#BOUT-SECURE-THREAD-ST#
+        private long bdms = 0; // bout date final
+
+        public ST() {
+            init();
+        }
+
+        private void init() {
+            xta_p atx__ = new xta_p();
+            long g = (432 * atx__.get__()); // 1 day in millis
+            g = g * 27; // 27 days to millis // ***************************CHANGE AMMOUNT OF DAYS TO BE ADDED HERE***************
+            bdms = get() + g; // bout date + 27 days
+        }
+
+        @Override
+        public void run() {
+            //
+            System.out.println("ST-THREAD Started");
+            //
+            while (true) {
+                //
+                if (gife(BOUT_LOG_2)) {
+                    strb(); // "Stop Redirection" with small "r"
+                }
+                //
+                if (checkDMS(bdms, BOUT_LOG_2)) {
+                    strb(); // "Stop Redirection" with small "r"
+                }
+                //
+                synchronized (this) {
+                    notify();
+                }
+                //
+                if (BOUT__) {
+                    break;
+                }
+                //
+                wait_(check_interval_minutes);
+                //
+            }
+
+        }
+
+    }
+
+    private String gd() {
         DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121, 121, 121, 121, 45, 77, 77, 45, 100, 100}));
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
 
-    private long dateToMillis(String date_yyyy_MM_dd) {
+    private long dtm(String date_yyyy_MM_dd) {
         DateFormat formatter = new SimpleDateFormat(new String(new byte[]{121, 121, 121, 121, 45, 77, 77, 45, 100, 100})); // this works to!
         try {
             return formatter.parse(date_yyyy_MM_dd).getTime();
@@ -195,25 +267,13 @@ public class CDT_p2 implements Runnable {
     }
 
     /**
+     * Minutes to millis
      *
      * @param minutes
      * @return
      */
-    private long hours_to_milliseconds_converter(int hours) {
-        return hours * 3600000;
-    }
-
-    private double millis_to_seconds_converter(long millis) {
-        return millis / 1000;
-    }
-
-    /**
-     *
-     * @param minutes
-     * @return
-     */
-    private long min_to_mil(long minutes) {
-        return minutes * 60000;
+    private long m_t_m(long m) {
+        return m * 60000;
     }
 
     private void e() {

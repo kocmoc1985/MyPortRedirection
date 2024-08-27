@@ -9,14 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import oanvand.CDT_p4;
 import oanvand.CDT_p2;
+import oanvand.CDT_p3;
+import oanvand.CDT_p5;
 import supplementary.GP;
 import supplementary.HelpM;
 import supplementary.OUT;
-import oanvand.CDT_p3;
-import oanvand.CDT_p5;
-import oanvand.CDT_p6;
 
 /**
  *
@@ -51,7 +49,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - will work at start-up, BETWEEN 42 min and 4 hours
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
-//        CDT_p2 cdt = new CDT_p2(187, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
+//        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
         CDT_p3 cdt = new CDT_p3(1, CDT_p2.get()); // 
@@ -65,7 +63,8 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
 //        CDT_p4 cdt = new CDT_p4(926, CDT_p2.get()); // P4
         //
         //
-        // P5 is the one without any RANDOM delays
+        // P5 is the one without any RANDOM delays AND IGNORES the "SECURE THREAD"
+        // So this one works exactly as the INITIAL ONE.
 //        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get()); // P5
         //
         //
@@ -78,6 +77,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
     }
 
     private void go() {
+        //
         try {
             readFromFileIntoList();
         } catch (Exception ex) {
