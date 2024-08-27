@@ -14,8 +14,8 @@ public class test {
         Thread x = new Thread(new T1());
         x.start();
         //
-        Thread x2 = new Thread(new T2());
-        x2.start();
+//        Thread x2 = new Thread(new T2());
+//        x2.start();
     }
 
    

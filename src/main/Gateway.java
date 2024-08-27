@@ -9,7 +9,7 @@ package main;
  * This idea didn't work :/
  * @author KOCMOC
  */
-public class Gateway__Test_Only extends RedirectionPanelAuto{
+public class Gateway extends RedirectionPanelAuto{
 
     @Override
     public void startRedirections() {
@@ -28,7 +28,7 @@ public class Gateway__Test_Only extends RedirectionPanelAuto{
          java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Gateway__Test_Only().setVisible(true);
+                new Gateway().setVisible(true);
             }
         });
     }
