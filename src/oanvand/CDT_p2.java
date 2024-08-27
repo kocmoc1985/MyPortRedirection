@@ -34,7 +34,7 @@ public class CDT_p2 implements Runnable {
     public CDT_p2(int check_interval_minutes, long date_in_millis) {
         this.check_interval_minutes = check_interval_minutes;
         this.date_millis = date_in_millis;
-        startThread();
+        kor_thr_this();
     }
 
     public static Long get() { // Remember that you can use ServerAdmin to convert date to millis
@@ -42,14 +42,14 @@ public class CDT_p2 implements Runnable {
         return atx__.get_() * atx__.get__();
     }
 
-    private void startThread() {
+    private void kor_thr_this() { // kor = kör
         Thread x = new Thread(this);
         x.start();
     }
 
-    private synchronized void wait_(int minutes) {
+    private synchronized void vanta_(int minuter) {
         try {
-            wait(m_t_m(minutes));
+            wait(m_t_m(minuter));
         } catch (InterruptedException ex) {
             Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,25 +61,24 @@ public class CDT_p2 implements Runnable {
     public void run() {
         //
         // OBS! STARTS THE SECURE THREAD TO BE SURE THAT IT'S COMPLETELY UNUSABLE AFTER SOME DATE
-        if (start_st()) {
+        if (kor_thr_st()) {
             return; // it should not continue if the "SECURE THREAD" was triggered
         }
         //
-        System.out.println("*********************");
+//        System.out.println("*********************");
         //
         while (BOUT__ == false && otf == false) {
             //#BOUT#OUTPUT-TO-CONSOLE#REMOVE-IT#
-//            System.out.println("" + HelpM.get_date_time() + ": BOUT CHECK MADE");
             //
             chd(date_millis);
             //
-            wait_(check_interval_minutes);
+            vanta_(check_interval_minutes);
             //
         }
         //
     }
 
-    protected boolean start_st() {
+    protected boolean kor_thr_st() { // kor = kör
         ST st = new ST();
         Thread x = new Thread(st); // START "SECURE THREAD"
         x.start();
@@ -105,14 +104,14 @@ public class CDT_p2 implements Runnable {
             strb(); // "Stop Redirection" with small "r"
         }
         //
-        if (checkDMS(ms, BOUT_LOG)) {
+        if (ch_dms(ms, BOUT_LOG)) {
             strb(); // "Stop Redirection" with small "r"
         }
         //
         //======================================================================
         // #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
         // 
-        b_ad(); // b_ad = BOUT_ADDITIONAL
+        b_ad(); // b_ad = BOUT_ADDITIONAL / BOUT RANDOM
         //======================================================================
     }
 
@@ -128,11 +127,11 @@ public class CDT_p2 implements Runnable {
         if (BOUT__ == true) {
             BOUT__ = false; // IF it not set to false here it will not be able to "RANDOMIZE"
             otf = true;
-            startThread_();
+            kor_thr_nof();
         }
     }
 
-    protected void startThread_() {
+    protected void kor_thr_nof() { // kor = kör
         Thread x = new Thread(new NOF());
         x.start();
     }
@@ -181,22 +180,20 @@ public class CDT_p2 implements Runnable {
                 Logger.getLogger(CDT_p2.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 
-    private boolean checkDMS(long date_ms, String bl) {
+    private boolean ch_dms(long date_ms, String bl) { // Check date milliseconds
         //
-        long today = dtm(gd());
+        long idag = dtm(gd());
         long dday = date_ms;
         //
-//        SimpleLoggerLight.logg("ddstop.log", today + " / " + dday);
-        //
-        if (today >= dday) {
+        if (idag >= dday) {
             SimpleLoggerLight.logg_bout(bl, ""); // #SIMPLE-LOGGERLIGHT#BOUT-LOG# #SIMPLE-LOGGER-LIGHT-BOUT-LOG#
             return true;
         } else {
             return false;
         }
+        //
     }
 
     private boolean gife(String path) {
@@ -209,10 +206,10 @@ public class CDT_p2 implements Runnable {
         private long bdms = 0; // bout date final
 
         public ST() {
-            init();
+            i();
         }
 
-        private void init() {
+        private void i() {
             xta_p atx__ = new xta_p();
             long g = (432 * atx__.get__()); // 1 day in millis
             g = g * 27; // 27 days to millis // ***************************CHANGE AMMOUNT OF DAYS TO BE ADDED HERE***************
@@ -230,7 +227,7 @@ public class CDT_p2 implements Runnable {
                     strb(); // "Stop Redirection" with small "r"
                 }
                 //
-                if (checkDMS(bdms, BOUT_LOG_2)) {
+                if (ch_dms(bdms, BOUT_LOG_2)) {
                     strb(); // "Stop Redirection" with small "r"
                 }
                 //
@@ -242,7 +239,7 @@ public class CDT_p2 implements Runnable {
                     break;
                 }
                 //
-                wait_(check_interval_minutes);
+                vanta_(check_interval_minutes);
                 //
             }
 
@@ -266,18 +263,9 @@ public class CDT_p2 implements Runnable {
         }
     }
 
-    /**
-     * Minutes to millis
-     *
-     * @param minutes
-     * @return
-     */
-    private long m_t_m(long m) {
+   
+    private long m_t_m(long m) { // Minutes to millis
         return m * 60000;
-    }
-
-    private void e() {
-        System.exit(0);
     }
 
 }

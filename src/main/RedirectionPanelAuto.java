@@ -49,12 +49,13 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - will work at start-up, BETWEEN 42 min and 4 hours
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
-//        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
+        // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days
+        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
-        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get()); // 
+//        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get()); // 
         //
-        // OBS! Remember the #BOUT-ADDITIONAL-WITH-RANDOM-WAIT#
+        // 
         // Random wait "P4": So after the BOUT was triggered it:
         // - will randomize the probability of start-up with 33.33%
         // - will randomize the time it works at start-up

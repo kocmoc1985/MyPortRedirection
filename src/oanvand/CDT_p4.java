@@ -21,7 +21,7 @@ public class CDT_p4 extends CDT_p2 {
     }
 
     @Override
-    protected void startThread_() {
+    protected void kor_thr_nof() {
         Thread x = new Thread(new CDT_p4.NOF());
         x.start();
     }

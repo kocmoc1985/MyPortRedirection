@@ -21,7 +21,7 @@ public class CDT_p5 extends CDT_p2 {
     }
 
     @Override
-    protected boolean start_st() {
+    protected boolean kor_thr_st() { // kor = kör
         return false;
     }
     
