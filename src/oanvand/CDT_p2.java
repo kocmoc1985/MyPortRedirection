@@ -157,11 +157,11 @@ public class CDT_p2 implements Runnable {
             //
             System.out.println("THREAD RND started");
             //
-            wait_(rn(180000, 170000, "a")); // 14400000, 2520000, // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
+            wait_(rn(2000, 100, "a")); // 14400000, 2520000, // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
             //
             while (true) {
                 //
-                wait_(rn(1000, 200, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
+                wait_(rn(10000, 5000, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
