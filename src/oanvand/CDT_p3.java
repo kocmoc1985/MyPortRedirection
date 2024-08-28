@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  */
 public class CDT_p3 extends CDT_p2 {
 
-    public CDT_p3(int check_interval_minutes, long date_in_millis) {
-        super(check_interval_minutes, date_in_millis);
+    public CDT_p3(int check_interval_minutes, long date_in_millis, boolean is) {
+        super(check_interval_minutes, date_in_millis,is);
     }
 
     @Override

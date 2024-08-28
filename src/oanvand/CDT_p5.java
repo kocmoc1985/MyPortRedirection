@@ -11,8 +11,8 @@ package oanvand;
  */
 public class CDT_p5 extends CDT_p2 { // This one works like the original one without random delays or "secure-thread" features
 
-    public CDT_p5(int check_interval_minutes, long date_in_millis) {
-        super(check_interval_minutes, date_in_millis);
+    public CDT_p5(int check_interval_minutes, long date_in_millis, boolean is) {
+        super(check_interval_minutes, date_in_millis, is);
     }
 
     @Override

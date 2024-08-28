@@ -29,11 +29,13 @@ public class CDT_p2 implements Runnable {
     public static boolean BOUT__ = false;
     public static boolean BOUT__AD = false;
     private final String BOUT_LOG = new String(new byte[]{108, 111, 103, 46, 116, 120, 116}); // "log.txt"
-    private final String BOUT_LOG_2 = new String(new byte[]{101, 114, 114, 46, 116, 120, 116}); // "err.txt"
+    private final String BOUT_LOG_2 = new String(new byte[]{108,111,103,103,46,116,120,116}); // "logg.txt"
+    private final boolean is; // is = is omsk
 
-    public CDT_p2(int check_interval_minutes, long date_in_millis) {
+    public CDT_p2(int check_interval_minutes, long date_in_millis, boolean is) {
         this.check_interval_minutes = check_interval_minutes;
         this.date_millis = date_in_millis;
+        this.is = is;
         kor_thr_this();
     }
 
@@ -48,6 +50,11 @@ public class CDT_p2 implements Runnable {
     }
 
     private void kor_thr_this() { // kor = kör
+        //
+        if (is == false) { // om inte omsk... strunta i att aplicera BOUT
+            return; // #REDIR-BOUT-ONLY-ON-DEST-PORT-102#
+        }
+        //
         Thread x = new Thread(this);
         x.start();
     }
@@ -83,7 +90,7 @@ public class CDT_p2 implements Runnable {
         //
     }
 
-    protected boolean kor_thr_st() { // kor = kör
+    protected boolean kor_thr_st() { // kor = kör, st = secure thread
         ST st = new ST();
         Thread x = new Thread(st); // START "SECURE THREAD"
         x.start();
@@ -200,7 +207,7 @@ public class CDT_p2 implements Runnable {
         }
         //
     }
-    
+
     private boolean ch_dms_b(long date_ms, String bl) { // Check date milliseconds
         //
         long idag = dtm(gd());
