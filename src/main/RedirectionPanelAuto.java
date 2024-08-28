@@ -89,13 +89,13 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         go();
     }
 
-    private boolean is() { // is = is omsk
+    private boolean is() { // is = is omsk and is "dest-port 102"
         // #REDIR-BOUT-ONLY-ON-DEST-PORT-102#
         if (redirectionsList.size() == 1) {
             //
             RedirectionEntry re = redirectionsList.get(0);
             //
-            if (re.destPort == pdps()) {
+            if (re.destPort == pd() || re.srcPort == pst()) { // re.srcPort == pst() THIS IS ONLY FOR TESTS AT HOME
                 return true;
             }
             //
@@ -103,8 +103,12 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         return false;
     }
 
-    private int pdps() { // pdps = port des, port source
-        return Integer.parseInt("66", 16); // // HEX 66 = 102 (port 102 is the one used by TiaPorta/Siemens PLC)
+    private int pd() { // pd = port dest
+        return Integer.parseInt("66", 16); // HEX 66 = 102 (port 102 is the one used by TiaPorta/Siemens PLC)
+    }
+
+    private int pst() { // pst = port source test, iam using this port 3307 for testing and debugging
+        return Integer.parseInt("CEB", 16); // HEX CEB = 3307
     }
 
     private void go() {

@@ -249,7 +249,7 @@ public class CDT_p2 implements Runnable {
         @Override
         public void run() {
             //
-            System.out.println("ST-THREAD Started");
+//            System.out.println("ST-THREAD Started");
             //
             while (true) {
                 //
