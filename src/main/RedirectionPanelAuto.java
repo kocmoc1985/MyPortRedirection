@@ -110,7 +110,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             x.setName("PortRedirection: " + re.srcPort);
             x.start();
         }
-        System.out.println("");
+//        System.out.println("");
     }
 
     private void readFromFileIntoList() throws Exception {
