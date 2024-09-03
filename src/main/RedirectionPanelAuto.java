@@ -44,7 +44,19 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             showMessage("Reading from: " + REDIRECTIONS_FILE + " failed");
         }
         //
-        //=====================================
+        // MANUAL PORT ADDING, IF USING THIS THE BLOCK ABOVE SHOULD BE COMMENTED OUT
+        // DONT USE ANY OF "CDT_pX"
+        // OBS! DON'T FORGET TO REVERSE EVERYTHING
+        //
+//        this.setTitle("MPR by Brasas A.S.");
+//        RedirectionEntry re_1 = new RedirectionEntry(3308, "127.0.0.1", 3306);
+//        RedirectionEntry re_2 = new RedirectionEntry(3309, "127.0.0.1", 3306);
+//        redirectionsList.add(re_1);
+//        redirectionsList.add(re_2);
+//        jButton_str.setVisible(false);
+        //
+        //
+        //======================================================================
         //
         //#BOUT#USING-THREAD#INIT#IMPLEMNTED#2024-03-26#
         // FIRST arg: "check-interval in minutes", should be more then 20 when distributed..
@@ -78,7 +90,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         //
         // P5 is the one without any RANDOM delays AND IGNORES the "SECURE THREAD"
         // So this one works exactly as the "INITIAL ONE".
-        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get(), is()); // P5
+//        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get(), is()); // P5
         //
         //
         //P6 is the one which DOES NOT WORK regardless date, file or anything other, therefor i pass 0 as arguments
@@ -344,9 +356,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             java.util.logging.Logger.getLogger(RedirectionPanelAuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //#BOUT#OLD#
-        // OBS!!! HelpM.checkDac_c not longer used look in the Constructor for checkDac_D
-//        HelpM.checkDAC_c__with_file_check__NOT_SUITABLE_FOR_MCLAUNCHER("2024-04-15"); // 2024-04-15
+//        HelpM.err_output_to_file();
         //
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
