@@ -44,17 +44,6 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
             showMessage("Reading from: " + REDIRECTIONS_FILE + " failed");
         }
         //
-        // MANUAL PORT ADDING, IF USING THIS THE BLOCK ABOVE SHOULD BE COMMENTED OUT
-        // DONT USE ANY OF "CDT_pX"
-        // OBS! DON'T FORGET TO REVERSE EVERYTHING
-        //
-//        this.setTitle("MPR by Brasas A.S.");
-//        RedirectionEntry re_1 = new RedirectionEntry(3308, "127.0.0.1", 3306);
-//        RedirectionEntry re_2 = new RedirectionEntry(3309, "127.0.0.1", 3306);
-//        redirectionsList.add(re_1);
-//        redirectionsList.add(re_2);
-//        jButton_str.setVisible(false);
-        //
         //
         //======================================================================
         //
@@ -74,7 +63,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
         // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days - #BOUT-SECURE-THREAD-ST#
         // Regarding the #TODAY-LESS-THEN-SET#. If the date is less then the date "xta_p.C_DAGIDAG" - a logg.txt will generated and PROGRAM will shutdown immediately by #BOUT-SECURE-THREAD-ST#
-//        CDT_p2 cdt = new CDT_p2(1, CDT_p2.get(), is()); // P2 // RARE-DELAYS ALGOR
+        CDT_p2 cdt = new CDT_p2(127, CDT_p2.get(), is()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
 //        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get(),is()); // 

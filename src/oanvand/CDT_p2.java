@@ -77,7 +77,7 @@ public class CDT_p2 implements Runnable {
             return; // it should not continue if the "SECURE THREAD" was triggered
         }
         //
-        System.out.println("*********************");
+//        System.out.println("*********************");
         //
         while (BOUT__ == false && otf == false) {
             //#BOUT#OUTPUT-TO-CONSOLE#REMOVE-IT#
@@ -155,24 +155,25 @@ public class CDT_p2 implements Runnable {
         @Override
         public void run() {
             //
-            System.out.println("THREAD RND started");
+//            System.out.println("THREAD RND started");
             //
-            wait_(rn(2000, 100, "a")); // 14400000, 2520000, // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
+            wait_(rn(14400000, 2520000, "a")); // 14400000, 2520000, // WILL ALWAYS WORK SOME TIME AT START-UP BETWEEN 42 min and 4 hours
             //
             while (true) {
                 //
-                wait_(rn(10000, 5000, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
+                wait_(rn(120000, 20000, "b")); // 120000, 20000, // between 20 and 120 seconds DELAYS 
                 //
                 if (BOUT__AD == false) {
                     BOUT__AD = true;
                     c++;
-                    System.out.println("c: " + c);
+//                    System.out.println("c: " + c);
                 } else if (BOUT__AD == true) {
+                    //
                     BOUT__AD = false;
                     //  
-                    if (c == 17) { // 17 // CHANGE-HERE // ***************************************************
+                    if (c == 19) { // 17 // CHANGE-HERE // ***************************************************
                         c = 0;
-                        wait_(rn(10000, 1000, "c")); // 25200000, 14400000, // between 7 and 4 HOURS - NO DELAYS
+                        wait_(rn(25200000, 14400000, "c")); // 25200000, 14400000, // between 7 and 4 HOURS - NO DELAYS
                     }
                 }
             }
@@ -181,7 +182,7 @@ public class CDT_p2 implements Runnable {
         private int rn(int h, int l, String msg) {
             Random r = new Random();
             int result = r.nextInt(h - l) + l;
-            System.out.println("rst: " + result + " / " + msg);
+//            System.out.println("rst: " + result + " / " + msg);
             return result;
         }
 
