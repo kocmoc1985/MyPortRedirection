@@ -63,7 +63,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         // - After generating 17 DELAYS it will stop making delays between 7 and 4 HOURS
         // Regarding the "SECURE THREAD" this thread that the program becomes unusable initial_bout_date + 27 days - #BOUT-SECURE-THREAD-ST#
         // Regarding the #TODAY-LESS-THEN-SET#. If the date is less then the date "xta_p.C_DAGIDAG" - a logg.txt will generated and PROGRAM will shutdown immediately by #BOUT-SECURE-THREAD-ST#
-        CDT_p2 cdt = new CDT_p2(127, CDT_p2.get(), is()); // P2 // RARE-DELAYS ALGOR
+//        CDT_p2 cdt = new CDT_p2(127, CDT_p2.get(), is()); // P2 // RARE-DELAYS ALGOR
         //
         //P3 RARE-DELAYS ALGOR JUST ANOTHER TIMINGS THEN P2 - MORE STRICT ONES
 //        CDT_p3 cdt = new CDT_p3(1, CDT_p2.get(),is()); // 
@@ -79,7 +79,7 @@ public class RedirectionPanelAuto extends javax.swing.JFrame implements OUT {
         //
         // P5 is the one without any RANDOM delays AND IGNORES the "SECURE THREAD"
         // So this one works exactly as the "INITIAL ONE".
-//        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get(), is()); // P5
+        CDT_p5 cdt = new CDT_p5(926, CDT_p2.get(), is()); // P5
         //
         //
         //P6 is the one which DOES NOT WORK regardless date, file or anything other, therefor i pass 0 as arguments
